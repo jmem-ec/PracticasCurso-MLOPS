@@ -1,0 +1,1028 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../..">
+      
+      
+        <link rel="next" href="../../ambiente/p1/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Arquitectura del Proyecto - Maestría en Ciencia Datos - Curso MLOps</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#estructura-practica-del-curso-basada-en-la-arquitectura" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="Maestría en Ciencia Datos - Curso MLOps" class="md-header__button md-logo" aria-label="Maestría en Ciencia Datos - Curso MLOps" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Maestría en Ciencia Datos - Curso MLOps
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Arquitectura del Proyecto
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Maestría en Ciencia Datos - Curso MLOps" class="md-nav__button md-logo" aria-label="Maestría en Ciencia Datos - Curso MLOps" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Maestría en Ciencia Datos - Curso MLOps
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Inicio
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Arquitectura del Proyecto
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Arquitectura del Proyecto
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#estructura-practica-del-curso-basada-en-la-arquitectura" class="md-nav__link">
+    <span class="md-ellipsis">
+      Estructura práctica del curso basada en la arquitectura
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Ambiente Desarrollo
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Ambiente Desarrollo
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ambiente/p1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Linea de Comandos
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ambiente/p2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gestión de Paquetes y Entornos Virtuales
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ambiente/p3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Editor
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Entendimiento del Negocio
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Entendimiento del Negocio
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../negocio/p4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Alineación Estratégica del Proyecto
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Configuración del Proyecto
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Configuración del Proyecto
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../entorno/p5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Creación del Entorno Virtual
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../entorno/p6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Estructura del Proyecto
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Entrenamiento del Modelo
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Entrenamiento del Modelo
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../entrenamiento/p7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Versionado del Código
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../entrenamiento/p8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Empaquetado y gestión de dependencias
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../entrenamiento/p9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Buenas Prácticas de Codificación
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Versionado de Datos
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Versionado de Datos
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../versionado_datos/p10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Almacenamiento remoto con DVC
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../versionado_datos/p11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Control de versiones de datos
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../versionado_datos/p12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Trabajando con Pipelines
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Versionado de Modelos
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Versionado de Modelos
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../versionado_modelo/p13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Control de Versiones del Modelo
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#estructura-practica-del-curso-basada-en-la-arquitectura" class="md-nav__link">
+    <span class="md-ellipsis">
+      Estructura práctica del curso basada en la arquitectura
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Arquitectura del Proyecto</h1>
+
+<p>La siguiente arquitectura es la base de las prácticas del curso de MLOps de la Maestría en Ciencia de Datos, y permite estructurar de manera clara y ordenada cada etapa del ciclo de vida de un proyecto de aprendizaje automático. Desde la comprensión del problema de negocio y la preparación de los datos, hasta el entrenamiento, despliegue, monitoreo y mejora continua del modelo, esta arquitectura permite aplicar los principios de MLOps de forma progresiva. Cada componente de este flujo guía a los estudiantes en el uso de herramientas específicas para automatizar procesos, garantizar la reproducibilidad y facilitar la integración de modelos en entornos reales. La representación visual de esta arquitectura sirve como referencia central para entender cómo se conectan y orquestan todos los elementos del proyecto.</p>
+<p><img alt="Diagrama de Flujo" src="../recursos/diagrama_de_flujo.png" /></p>
+<h2 id="estructura-practica-del-curso-basada-en-la-arquitectura">Estructura práctica del curso basada en la arquitectura</h2>
+<p>A continuación, se detalla la relación entre las prácticas propuestas y la arquitectura presentada. </p>
+<ul>
+<li>
+<p>Las tres primeras prácticas (<a href="../../ambiente/p1/">Linea de Comandos</a>, 
+    <a href="../../ambiente/p2/">Gestión de Paquetes y Entornos Virtuales</a> y <a href="../../ambiente/p3/">Editor</a> están orientadas a que los estudiantes comprendan los conceptos fundamentales y se familiaricen con las herramientas necesarias para la creación de un entorno de desarrollo adecuado, que servirá como base para el resto del ciclo de vida del proyecto de aprendizaje automático. </p>
+</li>
+<li>
+<p><strong>Problema del Negocio</strong>. En la práctica <a href="../../negocio/p4/">Alineación Estratégica del Proyecto</a>, se utilizarán las herramientas <strong>AI Canvas</strong> y/o <strong>ML Canvas</strong> con el objetivo de alinear los objetivos del proyecto con una necesidad concreta del negocio, comprender mejor el contexto del problema y analizar los datos disponibles para su desarrollo.</p>
+<p>Además, como parte de la preparación inicial, se ejecutarán tareas clave de <strong>configuración del proyecto</strong>, incluyendo:</p>
+<ul>
+<li>
+<p>La <a href="../../entorno/p5/">creación del entorno virtual</a> utilizando <code>Conda</code>, lo que permitirá una gestión adecuada de las dependencias del proyecto, y</p>
+</li>
+<li>
+<p>La definición de la <a href="../../entorno/p6/">estructura del proyecto</a> mediante <code>Cookiecutter</code>, siguiendo buenas prácticas de organización del código y recursos en proyectos de machine learning.</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Datos</strong>. Para este proyecto de predicción, se utiliza el conjunto de datos <a href="https://www.kaggle.com/datasets/divyeshardeshana/supply-chain-shipment-pricing-data">Supply Chain Shipment Pricing Data</a>, que contiene información detallada sobre envíos de mercancías. Este dataset es especialmente útil para tareas de modelado predictivo relacionadas con el cálculo o estimación de costos logísticos.</p>
+<p>Algunas de la variables incluidas en este conjunto de datos son:</p>
+<ul>
+<li>Tipo de envío: define la modalidad del envío (por ejemplo, urgente, regular).</li>
+<li>Origen y destino: indica las ubicaciones geográficas involucradas en el transporte.</li>
+<li>Peso y volumen del envío: características físicas relevantes para el cálculo de tarifas y la logística.</li>
+<li>Fecha y hora del envío: permiten explorar aspectos temporales como estacionalidad o plazos de entrega.</li>
+<li>Método de transporte: medio utilizado (aéreo, marítimo, terrestre, etc.).</li>
+<li>Costos asociados: variable objetivo que se desea predecir, relacionada con el precio final del envío.</li>
+</ul>
+<p>Este conjunto de datos es el insumo clave para el desarrollo del modelo que permite automatizar la estimación de costos y optimizar procesos dentro de la cadena de suministro. En la práctica <a href="../../entrenamiento/p7/">Versionado del Código</a>, se implementan los scripts necesarios para cargar y preparar esta fuente de datos durante el proceso de entrenamiento del modelo.</p>
+</li>
+<li>
+<p><strong>Entrenamiento</strong>. El proceso de entrenamiento en un flujo MLOps, abarca desde la recopilación y preparación de los datos hasta la generación de un modelo listo para producción. En el contexto del curso de MLOps, este proceso se fortalece mediante la aplicación de prácticas esenciales que aseguran reproducibilidad, trazabilidad y escalabilidad.</p>
+<p>Durante la práctica de <a href="../../entrenamiento/p7/">Versionado del Código</a>, se establecen mecanismos para registrar cambios en los scripts de entrenamiento, facilitando la colaboración y el control de modificaciones. Con <a href="../../entrenamiento/p8/">Empaquetado y gestión de dependencias</a>, se garantiza que los entornos sean reproducibles y portables, lo cual es clave para ejecutar el entrenamiento en distintos entornos sin errores.</p>
+<p>La práctica de <a href="../../entrenamiento/p9/">Buenas Prácticas de Codificación</a> mejora la legibilidad, mantenibilidad y robustez del código usado en la ingesta, preprocesamiento y entrenamiento. Por otro lado, <a href="../../versionado_datos/p10/">Almacenamiento remoto con DVC</a> y <a href="../../versionado_datos/p11/">Control de versiones de datos</a> permiten manejar datasets grandes de forma eficiente y controlada, asegurando que se pueda reproducir exactamente cualquier experimento.</p>
+<p>Con <a href="../../versionado_datos/p12/">Trabajando con Pipelines</a>, se estructuran las etapas del flujo de datos y entrenamiento como tareas modulares, lo que facilita la automatización y escalabilidad del proceso. Finalmente, el <a href="../../versionado_modelo/p13/">Control de Versiones del Modelo</a> permite registrar cada versión entrenada con sus métricas y configuración, lo que es vital para hacer seguimiento y decidir qué modelo es apto para desplegar.</p>
+<p>Estas prácticas integradas fortalecen cada paso del entrenamiento, desde los datos hasta el modelo final, asegurando un flujo de trabajo robusto y alineado con los principios de MLOps.</p>
+</li>
+<li>
+<p><strong>Despliegue</strong>. La fase de Despliegue representa el proceso de poner el modelo entrenado en producción para que pueda ser consumido por aplicaciones o usuarios finales. Esta etapa incluye:</p>
+<ul>
+<li>
+<p>Punto de Acceso al Modelo: el modelo se expone a través de un servicio, usualmente como una API, facilitando su integración en sistemas reales.</p>
+</li>
+<li>
+<p>Imagen Docker: el modelo, junto con su entorno y dependencias, se empaqueta en un contenedor, asegurando portabilidad y consistencia en distintos entornos.</p>
+</li>
+<li>
+<p>Configuración del Despliegue y Proveedor de Servicios en la Nube: se define la infraestructura en la nube donde se alojará el modelo, permitiendo escalar y monitorear el servicio.</p>
+</li>
+<li>
+<p>Servicio (API Endpoint): es el punto final donde se reciben solicitudes y se devuelven predicciones, habilitando el uso práctico del modelo en tiempo real.</p>
+</li>
+</ul>
+<p>Esta fase es clave para cerrar el ciclo del flujo MLOps y conectar el modelo con el mundo real.</p>
+</li>
+<li>
+<p><strong>Monitoreo</strong>. Esta fase se encarga de supervisar el comportamiento del modelo una vez desplegado. Esta incluye:</p>
+<ul>
+<li>
+<p>Monitoreo del Modelo: permite detectar desviaciones en el rendimiento del modelo (por ejemplo, por cambios en los datos de entrada), lo que puede indicar necesidad de reentrenamiento.</p>
+</li>
+<li>
+<p>Seguimiento del Modelo: registra métricas clave, como precisión, latencia o tasa de error, a lo largo del tiempo para asegurar que el modelo sigue cumpliendo con los objetivos del negocio.</p>
+</li>
+</ul>
+<p>Esta etapa es fundamental para mantener la calidad y confiabilidad del sistema de IA/ML en producción.</p>
+</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>

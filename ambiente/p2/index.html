@@ -1,0 +1,1067 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../p1/">
+      
+      
+        <link rel="next" href="../p3/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Gestión de Paquetes y Entornos Virtuales - Maestría en Ciencia Datos - Curso MLOps</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#objetivo" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="Maestría en Ciencia Datos - Curso MLOps" class="md-header__button md-logo" aria-label="Maestría en Ciencia Datos - Curso MLOps" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Maestría en Ciencia Datos - Curso MLOps
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Gestión de Paquetes y Entornos Virtuales
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Maestría en Ciencia Datos - Curso MLOps" class="md-nav__button md-logo" aria-label="Maestría en Ciencia Datos - Curso MLOps" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Maestría en Ciencia Datos - Curso MLOps
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Inicio
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../arquitectura/flujo_proyecto/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Arquitectura del Proyecto
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Ambiente Desarrollo
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Ambiente Desarrollo
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../p1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Linea de Comandos
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Gestión de Paquetes y Entornos Virtuales
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gestión de Paquetes y Entornos Virtuales
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#objetivo" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 Objetivo
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instalacion-de-conda-o-miniconda" class="md-nav__link">
+    <span class="md-ellipsis">
+      Instalación de Conda o Miniconda
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creacion-de-entornos-virtuales" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creación de entornos virtuales
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../p3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Editor
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Entendimiento del Negocio
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Entendimiento del Negocio
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../negocio/p4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Alineación Estratégica del Proyecto
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Configuración del Proyecto
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Configuración del Proyecto
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../entorno/p5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Creación del Entorno Virtual
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../entorno/p6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Estructura del Proyecto
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Entrenamiento del Modelo
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Entrenamiento del Modelo
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../entrenamiento/p7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Versionado del Código
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../entrenamiento/p8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Empaquetado y gestión de dependencias
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../entrenamiento/p9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Buenas Prácticas de Codificación
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Versionado de Datos
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Versionado de Datos
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../versionado_datos/p10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Almacenamiento remoto con DVC
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../versionado_datos/p11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Control de versiones de datos
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../versionado_datos/p12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Trabajando con Pipelines
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Versionado de Modelos
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Versionado de Modelos
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../versionado_modelo/p13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Control de Versiones del Modelo
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#objetivo" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 Objetivo
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instalacion-de-conda-o-miniconda" class="md-nav__link">
+    <span class="md-ellipsis">
+      Instalación de Conda o Miniconda
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creacion-de-entornos-virtuales" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creación de entornos virtuales
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Gestión de Paquetes y Entornos Virtuales</h1>
+
+<p>En esta práctica continuamos nuestro recorrido por el mundo de las operaciones de aprendizaje automático (MLOps). Antes de avanzar hacia procesos más complejos, es esencial contar con las herramientas adecuadas para instalar, actualizar y gestionar las dependencias de nuestros proyectos.</p>
+<p>Nos enfocaremos en el uso de gestores de paquetes como <code>conda</code> y <code>pip</code>, que nos permitirán construir entornos reproducibles, mantener versiones compatibles de librerías y facilitar la colaboración entre equipos. Estas habilidades serán clave para desarrollar proyectos robustos y eficientes a lo largo del curso de MLOps.</p>
+<h2 id="objetivo">🎯 Objetivo</h2>
+<p>Esta práctica tiene como objetivo familiarizarse con el uso de gestores de paquetes para instalar, gestionar y documentar dependencias en proyectos de MLOps, asegurando entornos consistentes y controlados para el desarrollo y despliegue de modelos.</p>
+<h2 id="instalacion-de-conda-o-miniconda">Instalación de Conda o Miniconda</h2>
+<ul>
+<li>
+<p>Descargue e instala <code>conda</code> o <code>miniconda</code>. <code>Conda</code> incluye muchos paquetes, mientras que <code>miniconda</code> es más ligera. Para los fines del curso se puede instalar <code>miniconda</code>.  Las instrucciones para la instalación de Miniconda se encuentran en: <a href="https://www.anaconda.com/docs/getting-started/miniconda/install">https://www.anaconda.com/docs/getting-started/miniconda/install</a>. </p>
+<div class="admonition note">
+<p class="admonition-title">Observación-1</p>
+<p>Recuerde leer las instrucciones para Linux desde la terminal (<em>Linux terminal installer</em>).</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Observación-2</p>
+<p>Cuando se le pregunte si desea modificar la configuración del shell para inicializar conda cada vez que abras un nuevo shell y para reconocer los comandos de conda automáticamente, responda <strong>YES</strong>.</p>
+</div>
+</li>
+<li>
+<p>Verifica la instalación. Si no funciona, puede ser necesario configurar la variable de entorno correspondiente. Si se ha instalado con éxito <code>miniconda</code>, entonces deberías ser capaz de ejecutar el comando <code>conda --version</code> en la terminal.</p>
+<p><img alt="Entorno base en conda" src="../recursos/imagen2.gif" /></p>
+<p>Conda siempre indicara en que entorno estás actualmente, indicado por (<code>env_name</code>) en el prompt. Por defecto, siempre se iniciará en el entorno (<code>base</code>).</p>
+</li>
+</ul>
+<h2 id="creacion-de-entornos-virtuales">Creación de entornos virtuales</h2>
+<ul>
+<li>Dentro del directorio principal denominada <code>Practicas-MLOPS</code> crea un subdirectorio <code>Practica-2</code> para alojar los ejercicios correspondientes a este tema.</li>
+</ul>
+<p>Las preguntas de las siguientes tareas responder en la plataforma virtual. Si no esta familiarizado con <code>conda</code> puede revisar <a href="../recursos/conda_cheatsheet.pdf">información de los comandos principales</a>.</p>
+<ul>
+<li>
+<p>Crear un nuevo entorno virtual. Asegúrarse de que se llama <code>mi_entorno</code> y que instala la versión 3.11 de Python. </p>
+<ul>
+<li>¿Qué comando deberías ejecutar para hacer esto?</li>
+<li>¿Qué comando de conda da una lista de todos los entornos creados?</li>
+<li>¿Qué comando de conda se puede usar para activar el entorno creado?</li>
+<li>¿Qué comando de conda da una lista de los paquetes instalados en el entorno actual?</li>
+</ul>
+</li>
+<li>
+<p>Pruebe de instalar el paquete <code>dotenv</code> dentro del entorno. Lo recomendable es instalar el paquete usando <code>conda</code>, sin embargo, es bastante seguro usar <code>pip</code> dentro de conda hoy en día. <strong>Use <code>pip</code> esta vez</strong>, y una vez instale el paquete cree un archivo de Python <code>programa_entorno.py</code> para cargar las variables de entorno desde el archivo <code>ventorno.env</code>. <strong><strong>!! Recuerda la última tarea de la <a href="../p1/#mi-ancla">práctica previa</a> !!</strong></strong>.</p>
+</li>
+<li>
+<p>Verifica que el archivo de Python <code>programa_entorno.py</code> imprime una de las variables del archivo <code>ventorno.env</code>.</p>
+</li>
+<li>
+<p>¿Cómo exportar fácilmente la lista de paquetes instalados en el entorno a un archivo de texto? Asegúrate de exportarlo a un archivo llamado <code>environment.yaml</code>, ya que conda usa otro formato por defecto que pip.</p>
+</li>
+<li>
+<p>Inspeccione el archivo para ver qué contiene. El archivo <code>environment.yaml</code> que has creado es una forma de <strong>asegurar la reproducibilidad entre usuarios</strong> porque cualquiera debería ser capaz de obtener una copia exacta de tu entorno si tiene tu archivo <code>environment.yaml</code>. </p>
+</li>
+<li>
+<p>¿El paquete <code>dotenv</code> recientemente instalado en el entorno <code>conda</code> forma parte de la lista?. ¿Porqué no está en la lista si fuese el caso? Puedes crear un archivo <code>environment1.yaml</code> que contenga también el paquete <code>dotenv</code>.</p>
+</li>
+<li>
+<p>Intente crear un nuevo entorno directamente desde su archivo <code>environment.yaml</code> y compruebe que los paquetes que se instalan coinciden exactamente con los que tenía originalmente.</p>
+</li>
+<li>
+<p>¿Cuál es el comando pip correspondiente que da una lista de todos los paquetes <code>pip</code> instalados? ¿Y cómo exportar esto a un archivo <code>requirements.txt</code>?</p>
+</li>
+<li>
+<p>Si echas un vistazo a los requisitos que tanto <code>pip</code> como <code>conda</code> producen, verás que a menudo están llenos de muchos más paquetes de los que estás usando en tu proyecto. Lo que te interesa son los paquetes que importas en tu código: <code>from package import module</code>. Una forma de evitar esto es usar el paquete <code>pipreqs</code>, que automáticamente escaneará tu proyecto y creará un archivo de requisitos específico para él.  </p>
+</li>
+<li>
+<p>Luego de instalar <code>pipreqs</code> en el <strong>entorno de copia</strong>, pruebe este paquete sobre el código de los archivos de Python de la carpeta en la Practica-1.</p>
+</li>
+<li>
+<p>¿Qué aspecto tiene el archivo <code>requirements.txt</code> que produce <code>pipreqs</code> comparado con los archivos producidos por <code>pip</code> o <code>conda</code>?</p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Importante</p>
+<p>Si bien los métodos mencionados en los ejercicios son excelentes maneras de construir archivos de requisitos automáticamente, a veces es más fácil sentarse y crear manualmente los archivos, ya que de esa manera te aseguras de que sólo se instalen los requisitos más necesarios al crear un nuevo entorno.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>

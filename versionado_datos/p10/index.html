@@ -1,0 +1,1322 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../entrenamiento/p9/">
+      
+      
+        <link rel="next" href="../p11/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Almacenamiento remoto con DVC - Maestría en Ciencia Datos - Curso MLOps</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#objetivos" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="Maestría en Ciencia Datos - Curso MLOps" class="md-header__button md-logo" aria-label="Maestría en Ciencia Datos - Curso MLOps" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Maestría en Ciencia Datos - Curso MLOps
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Almacenamiento remoto con DVC
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Maestría en Ciencia Datos - Curso MLOps" class="md-nav__button md-logo" aria-label="Maestría en Ciencia Datos - Curso MLOps" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Maestría en Ciencia Datos - Curso MLOps
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Inicio
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../arquitectura/flujo_proyecto/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Arquitectura del Proyecto
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Ambiente Desarrollo
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Ambiente Desarrollo
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ambiente/p1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Linea de Comandos
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ambiente/p2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gestión de Paquetes y Entornos Virtuales
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ambiente/p3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Editor
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Entendimiento del Negocio
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Entendimiento del Negocio
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../negocio/p4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Alineación Estratégica del Proyecto
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Configuración del Proyecto
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Configuración del Proyecto
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../entorno/p5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Creación del Entorno Virtual
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../entorno/p6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Estructura del Proyecto
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Entrenamiento del Modelo
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Entrenamiento del Modelo
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../entrenamiento/p7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Versionado del Código
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../entrenamiento/p8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Empaquetado y gestión de dependencias
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../entrenamiento/p9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Buenas Prácticas de Codificación
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Versionado de Datos
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Versionado de Datos
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Almacenamiento remoto con DVC
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Almacenamiento remoto con DVC
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#objetivos" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 Objetivos
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requisitos-previos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requisitos Previos
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instalacion-de-dvc" class="md-nav__link">
+    <span class="md-ellipsis">
+      Instalación de DVC
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-1-configurar-google-drive-como-almacenamiento-remoto-en-dvc" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔧 Parte 1: Configurar Google Drive como almacenamiento remoto en DVC
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔧 Parte 1: Configurar Google Drive como almacenamiento remoto en DVC">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#crear-y-conectar-una-carpeta-en-google-drive" class="md-nav__link">
+    <span class="md-ellipsis">
+      ☁️ Crear y conectar una carpeta en Google Drive
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-2-configurar-google-drive-como-almacenamiento-remoto-en-dvc" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔧 Parte 2: Configurar Google Drive como almacenamiento remoto en DVC
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔧 Parte 2: Configurar Google Drive como almacenamiento remoto en DVC">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#crear-un-bucket-en-google-cloud-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      ☁️ Crear un Bucket en Google Cloud Storage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#obtener-credenciales-para-conectar-dvc-con-gcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔐 Obtener credenciales para conectar DVC con GCP
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#descargar-credenciales" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔑 Descargar credenciales
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conectar-dvc-a-google-drive-o-google-cloud-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔗 Conectar DVC a Google Drive o Google Cloud Storage
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔗 Conectar DVC a Google Drive o Google Cloud Storage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#elegir-almacenamiento-remoto-al-hacer-pushpull" class="md-nav__link">
+    <span class="md-ellipsis">
+      Elegir almacenamiento remoto al hacer push/pull
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-definir-un-almacenamiento-remoto-por-defecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⭐ O definir un almacenamiento remoto por defecto
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../p11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Control de versiones de datos
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../p12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Trabajando con Pipelines
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Versionado de Modelos
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Versionado de Modelos
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../versionado_modelo/p13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Control de Versiones del Modelo
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#objetivos" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 Objetivos
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requisitos-previos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requisitos Previos
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instalacion-de-dvc" class="md-nav__link">
+    <span class="md-ellipsis">
+      Instalación de DVC
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-1-configurar-google-drive-como-almacenamiento-remoto-en-dvc" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔧 Parte 1: Configurar Google Drive como almacenamiento remoto en DVC
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔧 Parte 1: Configurar Google Drive como almacenamiento remoto en DVC">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#crear-y-conectar-una-carpeta-en-google-drive" class="md-nav__link">
+    <span class="md-ellipsis">
+      ☁️ Crear y conectar una carpeta en Google Drive
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parte-2-configurar-google-drive-como-almacenamiento-remoto-en-dvc" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔧 Parte 2: Configurar Google Drive como almacenamiento remoto en DVC
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔧 Parte 2: Configurar Google Drive como almacenamiento remoto en DVC">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#crear-un-bucket-en-google-cloud-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      ☁️ Crear un Bucket en Google Cloud Storage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#obtener-credenciales-para-conectar-dvc-con-gcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔐 Obtener credenciales para conectar DVC con GCP
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#descargar-credenciales" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔑 Descargar credenciales
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conectar-dvc-a-google-drive-o-google-cloud-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔗 Conectar DVC a Google Drive o Google Cloud Storage
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔗 Conectar DVC a Google Drive o Google Cloud Storage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#elegir-almacenamiento-remoto-al-hacer-pushpull" class="md-nav__link">
+    <span class="md-ellipsis">
+      Elegir almacenamiento remoto al hacer push/pull
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#o-definir-un-almacenamiento-remoto-por-defecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⭐ O definir un almacenamiento remoto por defecto
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Almacenamiento remoto con DVC</h1>
+
+<p>En proyectos de ciencia de datos o machine learning, los conjuntos de datos y modelos pueden ser muy grandes y difíciles de gestionar dentro de Git. Para resolver esto, DVC (Data Version Control) ofrece una forma eficiente de versionar y compartir archivos grandes sin almacenarlos directamente en el repositorio.</p>
+<p>DVC permite configurar un almacenamiento remoto (Remote Storage) para sincronizar automáticamente los archivos grandes con servicios como Google Cloud Storage, Google Drive, S3, entre otros. Así, se facilita la colaboración en equipo y la reproducción de experimentos.</p>
+<blockquote>
+<p>📝DVC actúa como un complemento de Git: mientras Git versiona el código, DVC se encarga de los datos y modelos.</p>
+</blockquote>
+<h2 id="objetivos">🎯 Objetivos</h2>
+<p>Aprender a gestionar datos de forma eficiente y colaborativa en proyectos de ciencia de datos mediante la herramienta DVC (Data Version Control). Al finalizar esta práctica, podrás:</p>
+<ul>
+<li>Instalar y configurar DVC en tu entorno local.</li>
+<li>Entender cómo DVC complementa a Git para versionar y rastrear archivos grandes.</li>
+<li>Configurar un almacenamiento remoto para compartir datos con tu equipo.</li>
+</ul>
+<h2 id="requisitos-previos">Requisitos Previos</h2>
+<ul>
+<li>Tener instalado git.</li>
+<li>Contar con una cuenta de Google.</li>
+</ul>
+<h2 id="instalacion-de-dvc">Instalación de DVC</h2>
+<blockquote>
+<p>💡 Se recomienda realizar esta instalación dentro de un entorno Conda previamente creado para el proyecto.</p>
+</blockquote>
+<ol>
+<li>Activar tu entorno Conda
+    <div class="highlight"><pre><span></span><code>conda<span class="w"> </span>activate<span class="w"> </span>nombre-del-entorno
+</code></pre></div></li>
+<li>
+<p>Instalar DVC
+La forma más directa es usando pip, ya que DVC se encuentra activamente mantenido en PyPI:
+    <div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>dvc
+</code></pre></div>
+También se recomienda para esta practica instalar DVC con soporte para almacenamiento en la nube. Para usar Google Drive:
+    <div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span><span class="s1">&#39;dvc[gdrive]&#39;</span>
+</code></pre></div>
+Y para usar Google Cloud Storage
+    <div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span><span class="s1">&#39;dvc[gcs]&#39;</span>
+</code></pre></div></p>
+<blockquote>
+<p>💡 Se puede usar el comando <code>pip install 'dvc[all]'</code> para instalar soporte para todos los  principales backends de almacenamiento remoto, incluyendo:</p>
+<ul>
+<li>Google Drive (gdrive)</li>
+<li>Google Cloud Storage (gcs)</li>
+<li>Amazon S3 (s3)</li>
+<li>Azure Blob Storage (azure)</li>
+<li>SSH, HDFS, WebDAV, entre otros.</li>
+</ul>
+<p>Porsupuesto, la instalación con <code>[all]</code> puede tardar más y ocupar más espacio, ya que instala muchas dependencias adicionales.</p>
+</blockquote>
+</li>
+<li>
+<p>Verificar instalación
+    <div class="highlight"><pre><span></span><code>dvc<span class="w"> </span>--version
+</code></pre></div></p>
+</li>
+</ol>
+<h2 id="parte-1-configurar-google-drive-como-almacenamiento-remoto-en-dvc">🔧 Parte 1: Configurar Google Drive como almacenamiento remoto en DVC</h2>
+<p>Google Drive puede usarse como un almacenamiento remoto para proyectos gestionados con DVC. Esta opción es útil para proyectos colaborativos que usan almacenamiento en la nube gratuito y accesible. A continuación se detallan los pasos para conectar tu proyecto a Google Drive.</p>
+<h3 id="crear-y-conectar-una-carpeta-en-google-drive">☁️ Crear y conectar una carpeta en Google Drive</h3>
+<ol>
+<li>Accede a Google Drive.</li>
+<li>Crea una nueva carpeta y asígnale un nombre único (por ejemplo, dvc-proyecto-datos).</li>
+<li>Haz clic derecho sobre la carpeta y selecciona "Compartir".</li>
+<li>Configura el acceso como "Cualquiera con el enlace puede ver".</li>
+<li>Copia el identificador de la carpeta desde la URL. Por ejemplo:</li>
+</ol>
+<p>https://drive.google.com/drive/folders/1A2B3C4D5E6F7G8H9I</p>
+<h2 id="parte-2-configurar-google-drive-como-almacenamiento-remoto-en-dvc">🔧 Parte 2: Configurar Google Drive como almacenamiento remoto en DVC</h2>
+<p><strong>Google Cloud Storage (GCS)</strong> puede usarse como un almacenamiento remoto para proyectos gestionados con DVC. Esta opción es ideal para proyectos colaborativos que requieren mayor capacidad, control de acceso y velocidad de transferencia, especialmente en entornos de producción o investigación. A continuación se detallan los pasos para conectar tu proyecto a Google Cloud Storage.</p>
+<h3 id="crear-un-bucket-en-google-cloud-storage">☁️ Crear un Bucket en Google Cloud Storage</h3>
+<ol>
+<li>Accede a <a href="https://console.cloud.google.com/">Google Cloud Console</a>.</li>
+<li>Asegúrate de haber creado un <strong>nuevo proyecto</strong> específicamente para esta práctica.</li>
+<li>En el menú de navegación, selecciona <strong>"Cloud Storage"</strong>, luego ve a <strong>"Buckets"</strong> y haz clic en <strong>"Create a new bucket"</strong>.</li>
+<li>Asigna un <strong>nombre único</strong> a tu bucket.</li>
+<li>Selecciona la región <strong><code>us-east1</code></strong>.</li>
+<li>Haz clic en <strong>"Continue"</strong> hasta completar la creación del bucket.</li>
+</ol>
+<hr />
+<h3 id="obtener-credenciales-para-conectar-dvc-con-gcp">🔐 Obtener credenciales para conectar DVC con GCP</h3>
+<p>Una vez creado el bucket, es necesario obtener las credenciales para conectar el almacenamiento remoto de GCP con tu proyecto DVC:</p>
+<ol>
+<li>Ve a <strong>IAM &amp; Admin</strong> y selecciona <strong>Service Accounts</strong> en la barra lateral izquierda.</li>
+<li>Haz clic en el botón <strong>"Create Service Account"</strong> para crear una nueva cuenta de servicio que usarás para conectar con el proyecto DVC.</li>
+<li>Asigna un <strong>nombre e ID</strong> a esta cuenta (por ejemplo, <code>lab2</code>) y deja la configuración predeterminada.</li>
+<li>Haz clic en <strong>"Create and Continue"</strong>.</li>
+<li>En la sección de permisos, selecciona <strong>Owner</strong> en el menú desplegable y haz clic en <strong>"Continue"</strong>.</li>
+<li>Añade tu usuario para que tenga acceso a esta cuenta de servicio y haz clic en <strong>"Done"</strong>.</li>
+</ol>
+<hr />
+<h3 id="descargar-credenciales">🔑 Descargar credenciales</h3>
+<ol>
+<li>Serás redirigido a la página de <strong>Service Accounts</strong>.</li>
+<li>Busca tu cuenta de servicio recién creada, haz clic en <strong>"Actions"</strong> (ícono de tres puntos), y selecciona <strong>"Manage keys"</strong>.</li>
+<li>Haz clic en el botón <strong>"Add Key"</strong>.</li>
+<li>Selecciona la opción de generar una nueva clave en formato <strong>JSON</strong>.</li>
+<li>Descarga y <strong>almacena de forma segura</strong> este archivo <code>.json</code>.</li>
+</ol>
+<blockquote>
+<p>📝 Este archivo de credenciales será utilizado por DVC como mecanismo de autenticación al conectarse con Google Cloud.</p>
+</blockquote>
+<hr />
+<h2 id="conectar-dvc-a-google-drive-o-google-cloud-storage">🔗 Conectar DVC a Google Drive o Google Cloud Storage</h2>
+<p>En esta práctica hemos dado las instrucciones para conectar DVC a dos almacenamientos remotos. DVC permite definir múltiples remotos y seleccionar cuál usar como predeterminado o indicar uno específico al momento de hacer <code>dvc push</code>, <code>dvc pull</code>, o <code>dvc fetch</code>.</p>
+<p>Para configurar dos accesos remotos, podemos usar:
+<div class="highlight"><pre><span></span><code><span class="c1"># Agregar Google Drive como remoto</span>
+dvc<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>gdrive-remote<span class="w"> </span>gdrive://&lt;ID-de-carpeta&gt;
+dvc<span class="w"> </span>remote<span class="w"> </span>modify<span class="w"> </span>gdrive-remote<span class="w"> </span>gdrive_use_service_account<span class="w"> </span><span class="nb">true</span>
+
+<span class="c1"># Agregar Google Cloud Storage como remoto</span>
+dvc<span class="w"> </span>remote<span class="w"> </span>add<span class="w"> </span>gcs-remote<span class="w"> </span>gs://mi-bucket-dvc
+dvc<span class="w"> </span>remote<span class="w"> </span>modify<span class="w"> </span>gcs-remote<span class="w"> </span>credentialpath<span class="w"> </span>/ruta/a/credenciales.json
+</code></pre></div></p>
+<blockquote>
+<p>Nota: Aquí no se establece ninguno como predeterminado aún.</p>
+</blockquote>
+<h3 id="elegir-almacenamiento-remoto-al-hacer-pushpull">Elegir almacenamiento remoto al hacer <code>push/pull</code></h3>
+<p>Puedes subir tus datos a un almacenamiento remoto específico sin necesidad de cambiar el predeterminado:
+<div class="highlight"><pre><span></span><code>dvc<span class="w"> </span>push<span class="w"> </span>-r<span class="w"> </span>gdrive-remote<span class="w">     </span><span class="c1"># Subir a Google Drive</span>
+dvc<span class="w"> </span>push<span class="w"> </span>-r<span class="w"> </span>gcs-remote<span class="w">        </span><span class="c1"># Subir a GCS</span>
+</code></pre></div></p>
+<h3 id="o-definir-un-almacenamiento-remoto-por-defecto">⭐ O definir un almacenamiento remoto por defecto</h3>
+<p><div class="highlight"><pre><span></span><code>dvc<span class="w"> </span>remote<span class="w"> </span>default<span class="w"> </span>gcs-remote
+</code></pre></div>
+Luego, cada vez que hagas <code>dvc push</code> o <code>dvc pull</code>, se usará ese sin tener que especificarlo.</p>
+<p>🧠 Recomendación</p>
+<p>Si trabajas con equipos o deseas redundancia en almacenamiento, tener múltiples remotos puede ayudarte a:</p>
+<ul>
+<li>Compartir con quienes no tienen acceso a ciertas plataformas.</li>
+<li>Hacer backups automáticos a diferentes nubes.</li>
+<li>Evaluar velocidad y costos de acceso.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>

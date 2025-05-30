@@ -1,0 +1,1151 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../p7/">
+      
+      
+        <link rel="next" href="../p9/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Empaquetado y gestión de dependencias - Maestría en Ciencia Datos - Curso MLOps</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#objetivos-de-la-practica" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="Maestría en Ciencia Datos - Curso MLOps" class="md-header__button md-logo" aria-label="Maestría en Ciencia Datos - Curso MLOps" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Maestría en Ciencia Datos - Curso MLOps
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Empaquetado y gestión de dependencias
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Maestría en Ciencia Datos - Curso MLOps" class="md-nav__button md-logo" aria-label="Maestría en Ciencia Datos - Curso MLOps" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Maestría en Ciencia Datos - Curso MLOps
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Inicio
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../arquitectura/flujo_proyecto/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Arquitectura del Proyecto
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Ambiente Desarrollo
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Ambiente Desarrollo
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ambiente/p1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Linea de Comandos
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ambiente/p2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gestión de Paquetes y Entornos Virtuales
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ambiente/p3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Editor
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Entendimiento del Negocio
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Entendimiento del Negocio
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../negocio/p4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Alineación Estratégica del Proyecto
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Configuración del Proyecto
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Configuración del Proyecto
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../entorno/p5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Creación del Entorno Virtual
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../entorno/p6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Estructura del Proyecto
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Entrenamiento del Modelo
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Entrenamiento del Modelo
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../p7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Versionado del Código
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Empaquetado y gestión de dependencias
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Empaquetado y gestión de dependencias
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#objetivos-de-la-practica" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 Objetivos de la práctica
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trabajo-previo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Trabajo Previo
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#empaquetado-vs-entorno-entendiendo-sus-roles-en-mlops" class="md-nav__link">
+    <span class="md-ellipsis">
+      Empaquetado vs entorno: entendiendo sus roles en MLOps
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#error-comun-modulenotfound-al-ejecutar-un-script-del-proyecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      💥 Error común: ModuleNotFound al ejecutar un script del proyecto
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#empaquetar-el-proyecto-como-un-modulo-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      Empaquetar el proyecto como un módulo Python
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../p9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Buenas Prácticas de Codificación
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Versionado de Datos
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Versionado de Datos
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../versionado_datos/p10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Almacenamiento remoto con DVC
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../versionado_datos/p11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Control de versiones de datos
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../versionado_datos/p12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Trabajando con Pipelines
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Versionado de Modelos
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Versionado de Modelos
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../versionado_modelo/p13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Control de Versiones del Modelo
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#objetivos-de-la-practica" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 Objetivos de la práctica
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trabajo-previo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Trabajo Previo
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#empaquetado-vs-entorno-entendiendo-sus-roles-en-mlops" class="md-nav__link">
+    <span class="md-ellipsis">
+      Empaquetado vs entorno: entendiendo sus roles en MLOps
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#error-comun-modulenotfound-al-ejecutar-un-script-del-proyecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      💥 Error común: ModuleNotFound al ejecutar un script del proyecto
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#empaquetar-el-proyecto-como-un-modulo-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      Empaquetar el proyecto como un módulo Python
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Empaquetado y gestión de dependencias</h1>
+
+<p>En el desarrollo de proyectos de Machine Learning, no basta con que el código funcione en el entorno local de un desarrollador. Para que un proyecto sea escalable, mantenible y reproducible —objetivos clave dentro del ciclo de vida de MLOps — es fundamental contar con una buena estrategia de <strong>empaquetado y gestión de dependencias</strong>.</p>
+<p>El <strong>empaquetado</strong> convierte un proyecto en una unidad instalable, facilitando su distribución, reutilización y ejecución en distintos entornos (desarrollo, pruebas, producción). Por su parte, la gestión de dependencias garantiza que todas las librerías y herramientas necesarias estén disponibles en versiones compatibles, evitando conflictos y fallos durante la ejecución del pipeline.</p>
+<p>En este contexto, herramientas modernas como <code>pyproject.toml</code> o <code>conda</code> cumplen un rol clave al facilitar la instalación ordenada del proyecto y sus componentes.</p>
+<h2 id="objetivos-de-la-practica">🎯 Objetivos de la práctica</h2>
+<p>Esta práctica tiene como finalidad que los estudiantes comprendan y apliquen los principios fundamentales del empaquetado de proyectos y la gestión de dependencias, elementos clave para garantizar la reproducibilidad, portabilidad y mantenibilidad de soluciones de Machine Learning en entornos reales.</p>
+<p>Al finalizar esta práctica, el estudiante será capaz de:</p>
+<ul>
+<li>Diferenciar el rol del empaquetado frente al entorno de ejecución (conda/env) en el flujo de trabajo MLOps.</li>
+<li>Detectar errores comunes como el típico ModuleNotFoundError, y entender cómo evitarlos mediante un empaquetado adecuado.</li>
+<li>Crear y configurar el archivo pyproject.toml para definir metadatos del proyecto y declarar sus dependencias.</li>
+<li>Instalar el proyecto como un paquete local y verificar que los módulos internos puedan ser importados correctamente.</li>
+</ul>
+<h2 id="trabajo-previo">Trabajo Previo</h2>
+<p>Antes de abordar el empaquetado y la gestión de dependencias, se realizaron dos pasos fundamentales que sientan las bases para un flujo de trabajo robusto en MLOps:</p>
+<ol>
+<li>
+<p><strong>Estructura del Proyecto con Cookiecutter.</strong>
+Se utilizó la herramienta cookiecutter para generar una estructura de proyecto estandarizada, que incluye:</p>
+<ul>
+<li>Separación clara entre código fuente (src/), datos (data/) y modelos (models/) .</li>
+<li>Archivos auxiliares como .gitignore, README.md, y carpetas para reportes (reports/).</li>
+</ul>
+<p>Esta estructura facilita la colaboración, el versionado y la escalabilidad del proyecto.</p>
+</li>
+<li>
+<p><strong>Creación del Entorno de Ejecución.</strong>
+Se definió y creó un entorno virtual con Conda, especificando:</p>
+<ul>
+<li>La versión de Python adecuada (por ejemplo, python=3.12).</li>
+<li>Dependencias base como pandas, scikit-learn, cookiecutter, entre otras.</li>
+<li>Posible inclusión del entorno en un archivo environment.yml para facilitar su recreación.</li>
+</ul>
+<p>Este entorno garantiza que todos los participantes trabajen bajo las mismas condiciones de ejecución, evitando errores relacionados con diferencias de versiones o paquetes.</p>
+</li>
+</ol>
+<h2 id="empaquetado-vs-entorno-entendiendo-sus-roles-en-mlops">Empaquetado vs entorno: entendiendo sus roles en MLOps</h2>
+<p>El <strong>empaquetado</strong> y la <strong>configuración del entorno</strong> son dos componentes fundamentales pero complementarios en un proyecto de Machine Learning dentro del ciclo de vida MLOps:</p>
+<table>
+<thead>
+<tr>
+<th>Aspecto</th>
+<th>Empaquetado (<code>pyproject.toml</code>)</th>
+<th>Entorno de Ejecución (<code>conda</code>, <code>env</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>¿Qué es?</td>
+<td>Descripción del <strong>proyecto y su instalación</strong> como paquete de Python</td>
+<td>Definición de las <strong>librerías, versiones y dependencias</strong> para ejecutar el código</td>
+</tr>
+<tr>
+<td>¿Qué resuelve?</td>
+<td>Facilita la distribución e instalación del código como un módulo reutilizable.</td>
+<td>Garantiza reproducibilidad y compatibilidad del entorno.</td>
+</tr>
+<tr>
+<td>¿Quién lo usa?</td>
+<td>Otros desarrolladores o sistemas que consumen el proyecto.</td>
+<td>Tú y tu equipo, durante desarrollo, entrenamiento o pruebas.</td>
+</tr>
+<tr>
+<td>Archivo principal</td>
+<td><code>pyproject.toml</code> o antes <code>setup.py</code> + <code>setup.cfg</code></td>
+<td><code>environment.yml</code>, <code>requirements.txt</code>, o comandos <code>conda</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="error-comun-modulenotfound-al-ejecutar-un-script-del-proyecto">💥 Error común: <code>ModuleNotFound</code> al ejecutar un script del proyecto</h2>
+<p>Para ilustrar un problema común en proyectos mal configurados, ejecutaremos el script <code>GetData.py</code>, cuya función es obtener datos desde una fuente externa.</p>
+<p>Este script importa otros módulos del mismo proyecto, como por ejemplo:</p>
+<div class="highlight"><pre><span></span><code>from<span class="w"> </span>app_logging<span class="w"> </span>import<span class="w"> </span>logging
+</code></pre></div>
+<p>Sin embargo, si intentamos ejecutarlo directamente con (o desde VS Code):</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>src/data_eng/GetData.py
+</code></pre></div>
+<p>Es muy probable que obtengamos un error como:</p>
+<div class="highlight"><pre><span></span><code>ModuleNotFoundError:<span class="w"> </span>No<span class="w"> </span>module<span class="w"> </span>named<span class="w"> </span><span class="s1">&#39;app_logging&#39;</span>
+</code></pre></div>
+<p>❓ ¿Por qué ocurre este error?</p>
+<p>Este error ocurre porque Python no reconoce automáticamente la raíz del proyecto ni las rutas relativas a otros módulos internos cuando se ejecuta un archivo de forma directa. Si el empaquetado del proyecto no está configurado correctamente (por ejemplo, sin un <code>pyproject.toml</code>, <code>setup.py</code>, o sin añadir el proyecto al <code>PYTHONPATH</code>), Python no sabe cómo resolver los imports relativos a la estructura del proyecto.</p>
+<p>Además, en muchos casos, el desarrollador principal <strong>puede haber configurado su entorno de desarrollo (IDE)</strong> —como PyCharm o VSCode— para que funcione solo en su máquina, estableciendo manualmente el intérprete o la carpeta raíz. Esto <strong>no garantiza que el proyecto funcione correctamente en otros entornos o máquinas</strong>.</p>
+<h2 id="empaquetar-el-proyecto-como-un-modulo-python">Empaquetar el proyecto como un módulo Python</h2>
+<p>Para garantizar que todos los módulos internos del proyecto se puedan importar correctamente —sin depender de configuraciones específicas del entorno o del IDE— es necesario <strong>empaquetar el proyecto como un módulo Python instalable</strong>.
+Esto se logra definiendo un archivo <code>pyproject.toml</code> (recomendado por los estándares modernos de Python) o, alternativamente, un <code>setup.py</code>, donde se describe la información del proyecto y sus dependencias.</p>
+<ol>
+<li>
+<p>Crear el archivo <code>pyproject.toml</code> en la raíz del proyecto:</p>
+<div class="highlight"><pre><span></span><code><span class="o">[</span>build-system<span class="o">]</span>
+<span class="nv">requires</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;setuptools&quot;</span>,<span class="w"> </span><span class="s2">&quot;wheel&quot;</span><span class="o">]</span>
+build-backend<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;setuptools.build_meta&quot;</span>
+
+<span class="o">[</span>project<span class="o">]</span>
+<span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;MLOPS-Project&quot;</span>
+<span class="nv">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;0.1.0&quot;</span>
+<span class="nv">authors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[{</span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Tu Nombre&quot;</span>,<span class="w"> </span><span class="nv">email</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;tu@correo.com&quot;</span><span class="o">}]</span>
+<span class="nv">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;Proyecto de predicción de costos en cadena de suministro&quot;</span>
+requires-python<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&gt;=3.12&quot;</span>
+<span class="nv">dynamic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;dependencies&quot;</span><span class="o">]</span>
+
+<span class="o">[</span>tool.setuptools.packages.find<span class="o">]</span>
+<span class="nv">where</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;src&quot;</span><span class="o">]</span>
+
+<span class="o">[</span>tool.setuptools.dynamic<span class="o">]</span>
+<span class="nv">dependencies</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">{</span><span class="nv">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;requirements.txt&quot;</span><span class="o">]}</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Para que <code>setuptools</code> encuentre los paquetes Python dentro de <code>src/</code>, debes indicárselo explícitamente con esta línea en el archivo <code>pyproject.toml</code>.</p>
+<div class="highlight"><pre><span></span><code><span class="o">[</span>tool.setuptools.packages.find<span class="o">]</span>
+<span class="nv">where</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="s2">&quot;src&quot;</span><span class="o">]</span>
+</code></pre></div>
+</div>
+</li>
+<li>
+<p>Instala tu proyecto en modo editable. Usa el siguiente comando desde la raíz del proyecto: </p>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</code></pre></div>
+<p>Esto permitirá que cualquier script dentro del proyecto pueda importar otros módulos internos sin necesidad de hacks o configuración especial en el IDE.</p>
+</li>
+</ol>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>
