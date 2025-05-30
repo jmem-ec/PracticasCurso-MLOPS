@@ -1,0 +1,1733 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../entorno/p6/">
+      
+      
+        <link rel="next" href="../p8/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Versionado del Código - Maestría en Ciencia Datos - Curso MLOps</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#git-vs-github" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="Maestría en Ciencia Datos - Curso MLOps" class="md-header__button md-logo" aria-label="Maestría en Ciencia Datos - Curso MLOps" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Maestría en Ciencia Datos - Curso MLOps
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Versionado del Código
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Maestría en Ciencia Datos - Curso MLOps" class="md-nav__button md-logo" aria-label="Maestría en Ciencia Datos - Curso MLOps" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Maestría en Ciencia Datos - Curso MLOps
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Inicio
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../arquitectura/flujo_proyecto/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Arquitectura del Proyecto
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Ambiente Desarrollo
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Ambiente Desarrollo
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ambiente/p1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Linea de Comandos
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ambiente/p2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gestión de Paquetes y Entornos Virtuales
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ambiente/p3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Editor
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Entendimiento del Negocio
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Entendimiento del Negocio
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../negocio/p4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Alineación Estratégica del Proyecto
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Configuración del Proyecto
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Configuración del Proyecto
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../entorno/p5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Creación del Entorno Virtual
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../entorno/p6/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Estructura del Proyecto
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Entrenamiento del Modelo
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Entrenamiento del Modelo
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Versionado del Código
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Versionado del Código
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#git-vs-github" class="md-nav__link">
+    <span class="md-ellipsis">
+      Git vs GitHub
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objetivos" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 Objetivos
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limpieza-de-entornos-conda-no-utilizados" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧹 Limpieza de Entornos Conda No Utilizados
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧹 Limpieza de Entornos Conda No Utilizados">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tarea" class="md-nav__link">
+    <span class="md-ellipsis">
+      🛠️ Tarea
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inicio-del-proyecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      Inicio del Proyecto
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#escenario" class="md-nav__link">
+    <span class="md-ellipsis">
+      Escenario
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Escenario">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Roles
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requisitos-previos-para-cada-persona" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requisitos previos: para cada persona
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Requisitos previos: para cada persona">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-tener-una-cuenta-de-github" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Tener una cuenta de GitHub
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-tener-git-instalado" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Tener Git instalado
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-configurar-acceso-remoto-a-github-opcional" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Configurar acceso remoto a GitHub [opcional]
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracion-del-repositorio-de-equipo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuración del repositorio de equipo
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuración del repositorio de equipo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pasos-para-hacer-el-fork" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pasos para hacer el fork:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clonar-el-repositorio-del-equipo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clonar el repositorio del equipo
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crear-y-activar-el-entorno-conda" class="md-nav__link">
+    <span class="md-ellipsis">
+      Crear y activar el entorno conda
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Crear y activar el entorno conda">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tarea_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      🛠️ Tarea
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tareas-del-equipo-de-desarrollo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tareas del equipo de desarrollo
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tareas del equipo de desarrollo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#persona-a-division-de-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Persona A: División de datos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#persona-b-entrenamiento-del-modelo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Persona B: Entrenamiento del Modelo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#persona-a-o-b-integrar-ramas-en-main" class="md-nav__link">
+    <span class="md-ellipsis">
+      Persona A ó B: Integrar ramas en main
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#persona-a-o-b-prediccion-del-modelo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Persona A ó B: Predicción del Modelo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#actualizar-el-codigo-local-de-cada-persona" class="md-nav__link">
+    <span class="md-ellipsis">
+      Actualizar el código local de cada persona
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../p8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Empaquetado y gestión de dependencias
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../p9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Buenas Prácticas de Codificación
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Versionado de Datos
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Versionado de Datos
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../versionado_datos/p10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Almacenamiento remoto con DVC
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../versionado_datos/p11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Control de versiones de datos
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../versionado_datos/p12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Trabajando con Pipelines
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Versionado de Modelos
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Versionado de Modelos
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../versionado_modelo/p13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Control de Versiones del Modelo
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#git-vs-github" class="md-nav__link">
+    <span class="md-ellipsis">
+      Git vs GitHub
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#objetivos" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 Objetivos
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limpieza-de-entornos-conda-no-utilizados" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧹 Limpieza de Entornos Conda No Utilizados
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🧹 Limpieza de Entornos Conda No Utilizados">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tarea" class="md-nav__link">
+    <span class="md-ellipsis">
+      🛠️ Tarea
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inicio-del-proyecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      Inicio del Proyecto
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#escenario" class="md-nav__link">
+    <span class="md-ellipsis">
+      Escenario
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Escenario">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      Roles
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requisitos-previos-para-cada-persona" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requisitos previos: para cada persona
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Requisitos previos: para cada persona">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-tener-una-cuenta-de-github" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Tener una cuenta de GitHub
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-tener-git-instalado" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Tener Git instalado
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-configurar-acceso-remoto-a-github-opcional" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Configurar acceso remoto a GitHub [opcional]
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuracion-del-repositorio-de-equipo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Configuración del repositorio de equipo
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Configuración del repositorio de equipo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pasos-para-hacer-el-fork" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pasos para hacer el fork:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clonar-el-repositorio-del-equipo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clonar el repositorio del equipo
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#crear-y-activar-el-entorno-conda" class="md-nav__link">
+    <span class="md-ellipsis">
+      Crear y activar el entorno conda
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Crear y activar el entorno conda">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tarea_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      🛠️ Tarea
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tareas-del-equipo-de-desarrollo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tareas del equipo de desarrollo
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tareas del equipo de desarrollo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#persona-a-division-de-datos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Persona A: División de datos
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#persona-b-entrenamiento-del-modelo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Persona B: Entrenamiento del Modelo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#persona-a-o-b-integrar-ramas-en-main" class="md-nav__link">
+    <span class="md-ellipsis">
+      Persona A ó B: Integrar ramas en main
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#persona-a-o-b-prediccion-del-modelo" class="md-nav__link">
+    <span class="md-ellipsis">
+      Persona A ó B: Predicción del Modelo
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#actualizar-el-codigo-local-de-cada-persona" class="md-nav__link">
+    <span class="md-ellipsis">
+      Actualizar el código local de cada persona
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Versionado del Código</h1>
+
+<p>En esta práctica trabajaremos con <strong>Git</strong> y <strong>GitHub</strong> para simular un entorno colaborativo en el desarrollo de un proyecto de <em>Machine Learning para la Predicción de Precios en Artículos de Consignación</em> (ver detalles en <a href="../../negocio/p4/">AI/ML canvas</a>). Cada estudiante trabajará con su propia copia del repositorio inicial, desarrollará funcionalidades en una rama independiente y colaborará con sus compañeros para integrar esos cambios al proyecto principal.</p>
+<p>Es importante destacar que la colaboración en proyectos de programación requiere una forma de trabajo organizada sobre una misma base de código. Para lograrlo, se utilizan los <strong>sistemas de control de versiones</strong>, y Git es uno de los más utilizados en la actualidad.</p>
+<p>Git permite registrar de forma clara:</p>
+<ul>
+<li>Quién hizo un cambio en el código.</li>
+<li>Cuándo se realizó ese cambio.</li>
+<li>Qué se modificó exactamente.</li>
+</ul>
+<p>Estas capacidades facilitan el trabajo en equipo, permiten mantener un historial completo de cambios y hacen posible experimentar sin poner en riesgo la versión principal del proyecto.</p>
+<p>Para profundizar más en el uso de Git, puedes consultar el <a href="https://git-scm.com/book/es/v2">libro oficial de Git</a> o explorar tutoriales interactivos disponibles en línea.</p>
+<h2 id="git-vs-github">Git vs GitHub</h2>
+<p>Es fundamental distinguir entre <strong>Git</strong> y <strong>GitHub</strong>:</p>
+<ul>
+<li><strong>Git</strong> es la herramienta de control de versiones.</li>
+<li><strong>GitHub</strong> es una plataforma web que permite alojar repositorios Git, colaborar con otros desarrolladores y revisar cambios desde una interfaz gráfica.</li>
+</ul>
+<p>Aunque GitHub es la plataforma más popular, también existen otras alternativas como <strong><a href="https://about.gitlab.com">GitLab</a></strong>, <strong><a href="https://bitbucket.org/product/">Bitbucket</a></strong> o servidores privados.</p>
+<h2 id="objetivos">🎯 Objetivos</h2>
+<p>Al finalizar esta práctica, deberás ser capaz de:</p>
+<ul>
+<li>Clonar y configurar correctamente un repositorio remoto de GitHub.</li>
+<li>Crear y trabajar en ramas para desarrollar en paralelo.</li>
+<li>Subir y sincronizar tus cambios con el repositorio remoto.</li>
+<li>Resolver conflictos de integración cuando existan.</li>
+</ul>
+<h2 id="limpieza-de-entornos-conda-no-utilizados">🧹 Limpieza de Entornos Conda No Utilizados</h2>
+<p>A lo largo de las prácticas anteriores, se han introducido y aplicado los conceptos fundamentales para desarrollar un proyecto de Machine Learning de forma profesional, incluyendo la creación de entornos virtuales, la gestión de dependencias y la organización del código. Estos entornos han sido clave para asegurar la reproducibilidad y el aislamiento de cada fase del desarrollo.</p>
+<p>Sin embargo, como resultado del trabajo práctico, es probable que se hayan generado varios entornos Conda que ya no serán utilizados en las siguientes etapas del proyecto. Estos entornos continúan ocupando espacio en disco y consumiendo recursos del sistema, aunque no estén en uso.</p>
+<p>Por este motivo, se recomienda <strong>eliminar los entornos que ya no se necesitan</strong>. Esta es una práctica saludable para mantener tu sistema limpio, organizado y con espacio disponible, especialmente cuando trabajas con múltiples proyectos que requieren distintos entornos.</p>
+<p>Además, la limpieza regular de entornos ayuda a evitar confusiones y errores derivados del uso accidental de entornos obsoletos.</p>
+<h4 id="tarea">🛠️ Tarea</h4>
+<p>Responde las siguientes preguntas en la plataforma virtual:</p>
+<ul>
+<li>¿Cómo listar los entornos existentes?</li>
+<li>¿Cómo conocer todos los entornos creados y su ubicación?</li>
+<li>¿Cómo conocer el entorno activo?</li>
+<li>¿Cómo eliminar un entorno que ya no usas?</li>
+</ul>
+<p>Usando esta informacion puedes eliminar los entornos:</p>
+<ul>
+<li>mi_entorno</li>
+<li>mi_entorno_copia</li>
+<li>mlops_env</li>
+</ul>
+<p>🔍 Consejo adicional</p>
+<p>Después de eliminar entornos, también puedes liberar espacio limpiando paquetes en caché con:
+      <div class="highlight"><pre><span></span><code>conda<span class="w"> </span>clean<span class="w"> </span>--all
+</code></pre></div></p>
+<p>Este comando:</p>
+<ul>
+<li>Elimina paquetes descargados que ya no se usan.</li>
+<li>Borra archivos de instalación temporales.</li>
+<li>Libera espacio ocupado por versiones antiguas.</li>
+</ul>
+<p>⚠️ Revisa lo que se va a eliminar antes de aceptar: te pedirá confirmación.</p>
+<h2 id="inicio-del-proyecto">Inicio del Proyecto</h2>
+<p>Se asume que el <strong>responsable del proyecto</strong> ya ha iniciado la configuración inicial, ejecutando tareas previas como la i) definición del entorno de paquetes y librerías, ii) la estructuración del código del proyecto (según lo trabajado en las prácticas <a href="../../entorno/p6/">Creación del Entorno Virtual</a> y <a href="../../entorno/p5/">Estructura del Proyecto</a>) y iii) la implementación de algunas etapas clave del proceso de ingeniería de datos, como la <strong>ingesta</strong>, <strong>limpieza</strong> y <strong>etiquetado de los datos</strong> necesarios para entrenar el modelo de predicción. Con esta base establecida, el proyecto ha sido compartido con los colaboradores para continuar con su implementación de forma colaborativa.</p>
+<h2 id="escenario">Escenario</h2>
+<p>En esta práctica se simula una colaboración entre dos personas trabajando sobre un mismo proyecto de <em>Machine Learning</em>, utilizando <strong>Git</strong> y <strong>GitHub</strong> como herramientas de control de versiones y coordinación.</p>
+<h3 id="roles">Roles</h3>
+<ul>
+<li>
+<p><strong>Persona A</strong> será responsable de desarrollar un script que, a partir de un archivo de datos previamente procesado (en el que ya se han eliminado los valores atípicos, los datos nulos y los faltantes), realice la división del conjunto de datos en entrenamiento y prueba.</p>
+</li>
+<li>
+<p><strong>Persona B</strong> trabajará en paralelo desarrollando un script independiente que utilice los datos ya divididos para entrenar y validar un modelo de <em>Machine Learning</em>.</p>
+</li>
+</ul>
+<p>Cada persona trabajará en su <strong>propia rama de desarrollo</strong>, y al finalizar sus tareas, integrarán sus aportes al proyecto principal mediante <strong>GitHub</strong>, siguiendo buenas prácticas de colaboración y control de versiones.</p>
+<h2 id="requisitos-previos-para-cada-persona">Requisitos previos: para cada persona</h2>
+<p>Antes de comenzar la práctica, asegúrate de cumplir con los siguientes requisitos. Si aún no los tienes listos, aquí te explicamos cómo cumplirlos:</p>
+<h3 id="1-tener-una-cuenta-de-github">1. Tener una cuenta de GitHub</h3>
+<p><strong>Pasos para crear una cuenta:</strong></p>
+<ul>
+<li>Ingresa a <a href="https://github.com">https://github.com</a></li>
+<li>Haz clic en <strong>Sign up</strong> (Registrarse).</li>
+<li>Completa los datos solicitados:<ul>
+<li>Nombre de usuario</li>
+<li>Correo electrónico</li>
+<li>Contraseña segura</li>
+</ul>
+</li>
+<li>Sigue las instrucciones para verificar tu correo.</li>
+<li>Puedes elegir el <strong>plan gratuito (Free plan)</strong> para comenzar.</li>
+</ul>
+<p>Una vez creada tu cuenta, podrás clonar repositorios, crear ramas, hacer cambios y colaborar con otras personas.</p>
+<h3 id="2-tener-git-instalado">2. Tener Git instalado</h3>
+<p><strong>Pasos para instalar Git:</strong></p>
+<ul>
+<li>
+<p>Abre una terminal y ejecuta los siguientes comandos:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>git
+</code></pre></div>
+</li>
+<li>
+<p>Verifica la instalación con:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>–-version
+</code></pre></div>
+</li>
+</ul>
+<h3 id="3-configurar-acceso-remoto-a-github-opcional">3. Configurar acceso remoto a GitHub [opcional]</h3>
+<p>Aunque este requisito es <strong>opcional</strong>, se recomienda cumplirlo para facilitar el trabajo con Git. Su principal ventaja es que evita tener que ingresar tu usuario y contraseña cada vez que realizas un <code>git push</code>. Para lograrlo, puedes configurar una <strong>conexión segura</strong> con GitHub utilizando una llave SSH.</p>
+<div class="admonition note">
+<p class="admonition-title">IMPORTANTE</p>
+<p>Si decides no usar el <strong>método de conexión segura</strong> debes configurar Git para usar tu usuario de GitHub. De esta forma <code>git</code> sabrá quien es la persona autor de los <code>git commit</code>. El resto de pasos <strong>no son necesarios</strong>.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.name<span class="w"> </span><span class="s2">&quot;Tu Nombre Usuario&quot;</span>
+git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.email<span class="w"> </span><span class="s2">&quot;tu-email@ejemplo.com&quot;</span>
+</code></pre></div>
+</div>
+<ul>
+<li>
+<p>Verificar si ya tienes una clave SSH. Abre tu terminal y ejecuta:
+      <div class="highlight"><pre><span></span><code>ls<span class="w"> </span>~/.ssh
+</code></pre></div>
+      Si ves archivos como id_rsa y id_rsa.pub o id_ed25519, ya tienes una clave SSH. Si no, crea una.</p>
+</li>
+<li>
+<p>Generar una nueva llave SSH:</p>
+<p><div class="highlight"><pre><span></span><code>ssh-keygen<span class="w"> </span>-t<span class="w"> </span>rsa<span class="w"> </span>-b<span class="w"> </span><span class="m">4096</span><span class="w"> </span>-C<span class="w"> </span><span class="s2">&quot;tucorreo@example.com&quot;</span>
+</code></pre></div>
+  Ingrese el nombre del archivo para grabar la clave o presione ENTER para usar el nombre por omisión. Puede omitir el ingreso de una passphrase (o frase de paso).</p>
+</li>
+<li>
+<p>Mostrar la clave pública:</p>
+<div class="highlight"><pre><span></span><code>cat<span class="w"> </span>~/.ssh/id_rsa.pub
+</code></pre></div>
+</li>
+<li>
+<p>Copiar la clave y agregarla en GitHub:</p>
+<ul>
+<li>Ir a Settings → SSH and GPG keys → New SSH Key.</li>
+<li>Pegar la clave en el campo correspondiente</li>
+</ul>
+</li>
+<li>
+<p>Configurar Git para usar tu usuario de GitHub</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.name<span class="w"> </span><span class="s2">&quot;Tu Nombre Usuario&quot;</span>
+git<span class="w"> </span>config<span class="w"> </span>--global<span class="w"> </span>user.email<span class="w"> </span><span class="s2">&quot;tu-email@ejemplo.com&quot;</span>
+</code></pre></div>
+</li>
+<li>
+<p>Probar conexión</p>
+<p><div class="highlight"><pre><span></span><code>ssh<span class="w"> </span>-T<span class="w"> </span>git@github.com
+</code></pre></div>
+  <strong>Si todo está bien, verás algo como</strong>:</p>
+<p>The authenticity of host '[ssh.github.com]:443 ([140.82.112.36]:443)' can't be established.
+  XXXXXXX key fingerprint is SHA256:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.</p>
+<p>This key is not known by any other names.</p>
+<p>Are you sure you want to continue connecting (yes/no/[fingerprint])? yes</p>
+<p>Hi tu_usuario! You've successfully authenticated.</p>
+<p><strong>En caso de no poder conectarse</strong> y obtener un mensaje como este :</p>
+<p>ssh: connect to host github por un error de timed out port 22: Connection timed out. </p>
+<ul>
+<li>Puedes configurar Git a usar otro puerto (Ej. 443) para SSH. </li>
+<li>Edita (o crea) el archivo ~/.ssh/config:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>nano<span class="w"> </span>~/.ssh/config
+</code></pre></div>
+<ul>
+<li>Agrega este contenido</li>
+</ul>
+<div class="highlight"><pre><span></span><code>Host<span class="w"> </span>github.com
+Hostname<span class="w"> </span>ssh.github.com
+Port<span class="w"> </span><span class="m">443</span>
+User<span class="w"> </span>git
+</code></pre></div>
+<ul>
+<li>Guarda y prueba otra vez.</li>
+</ul>
+<div class="highlight"><pre><span></span><code>ssh<span class="w"> </span>-T<span class="w"> </span>git@github.com
+</code></pre></div>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">IMPORTANTE</p>
+<p>Por omisión, el acceso remoto en Git a plataformas como GitHub, GitLab o Bitbucket es mediante <strong>HTTPS</strong>. Esto ocurre porque:</p>
+<ul>
+<li>Es más sencillo de configurar inicialmente (no requiere claves SSH).</li>
+<li>Cualquier usuario con nombre de usuario y contraseña (o token personal) puede clonar un repositorio.</li>
+</ul>
+<p>Sin embargo, <strong>SSH es la opción recomendada</strong> para mayor seguridad y comodidad, especialmente si trabajas frecuentemente con Git, ya que:</p>
+<ul>
+<li>Evita tener que introducir el usuario/contraseña o token en cada operación.</li>
+<li>Utiliza autenticación basada en claves, que es más segura</li>
+</ul>
+<p>Para cambiar el acceso remoto de <strong>HTTPS a SSH</strong>, debes actualizar la URL del repositorio remoto <strong>una sola vez</strong> con el siguiente comando:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>remote<span class="w"> </span>set-url<span class="w"> </span>origin<span class="w"> </span>git@github.com:TU-USUARIO/Proyecto-MLOPS.git
+</code></pre></div>
+<p>Esto configura el repositorio para usar autenticación SSH en lugar de HTTPS en futuras operaciones como <code>git push</code> o <code>git pull</code>.</p>
+</div>
+<h2 id="configuracion-del-repositorio-de-equipo">Configuración del repositorio de equipo</h2>
+<p>Uno de los estudiantes (<strong>Persona A</strong> o <strong>Persona B</strong>) realizará un <strong>fork</strong> del repositorio base proporcionado por el docente (<strong>Responsable del Proyecto</strong>). Un fork en GitHub es una copia de un repositorio que se crea en tu propia cuenta. Te permite experimentar y trabajar en un proyecto sin afectar el original.</p>
+<h3 id="pasos-para-hacer-el-fork">Pasos para hacer el fork:</h3>
+<ol>
+<li>
+<p>Ir al repositorio original (del docente) en GitHub <a href="https://github.com/jmem-ec/Proyecto-MLOPS-Base">https://github.com/jmem-ec/Proyecto-MLOPS-Base</a>. </p>
+</li>
+<li>
+<p>Hacer clic en el botón <strong>"Fork"</strong> en la parte superior derecha.</p>
+</li>
+<li>
+<p>GitHub creará una copia del repositorio en la cuenta de la persona, por ejemplo: </p>
+<p><code>https://github.com/Persona_A/Proyecto-MLOPS</code></p>
+<p>Se recomienda cambiar el nombre del repositorio de <strong>Proyecto-MLOPS-Base</strong> a <strong>Proyecto-MLOPS</strong>, ya que este repositorio servirá como base principal para el desarrollo del proyecto de MLOps a lo largo de todo el curso.</p>
+</li>
+</ol>
+<p>Esta persona se convertirá en el "dueño" del fork, es decir, el responsable principal de esta copia del proyecto. A partir de aquí:</p>
+<ul>
+<li>
+<p>Debe <strong>invitar a sus compañeros como colaboradores</strong> del repositorio:</p>
+<ul>
+<li>Ir a <strong>Settings &gt; Collaborators</strong></li>
+<li>Hacer clic en <strong>"Add collaborator"</strong></li>
+<li>Ingresar los nombres de usuario de GitHub de los compañeros para que puedan clonar, crear ramas, hacer cambios y subirlos</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>📝 <strong>Nota explicativa</strong>:<br />
+El objetivo de realizar un fork y no empezar desde cero es aprovechar una base inicial de código ya estructurada, lo cual es muy común en proyectos reales. Por ejemplo, un equipo puede comenzar a desarrollar un sistema de Machine Learning a partir de un repositorio de prueba, una plantilla anterior o incluso un proyecto experimental del responsable técnico (en este caso, el docente).<br />
+A partir de ese punto de partida, los estudiantes comienzan a construir, adaptar y colaborar en su propia versión del proyecto.</p>
+</blockquote>
+<h2 id="clonar-el-repositorio-del-equipo">Clonar el repositorio del equipo</h2>
+<p>Para comenzar a trabajar, cada estudiante —<strong>incluido quien haya realizado el fork</strong>— debe clonar en su equipo local el repositorio que se generó a partir del fork.
+Este será su repositorio de trabajo a lo largo del curso.</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/Persona_A/Proyecto-MLOPS
+<span class="nb">cd</span><span class="w"> </span>Proyecto-MLOPS
+</code></pre></div>
+<h2 id="crear-y-activar-el-entorno-conda">Crear y activar el entorno <code>conda</code></h2>
+<p>Cada estudiante debe crear y activar el entorno <code>conda</code> a partir del archivo <code>environment.yml</code></p>
+<h4 id="tarea_1">🛠️ Tarea</h4>
+<ul>
+<li>¿Puedes identificar los cambios realizados sobre la plantilla base de MLOps (utilizada en la práctica <a href="../../entorno/p6/">Estructura del Proyecto</a>) que han sido implementados por el responsable en este nuevo proyecto?</li>
+<li>Al revisar el código implementado, ¿cuál es el nombre del archivo que contiene los datos fuente utilizados para el entrenamiento del modelo?</li>
+<li>¿El entorno creado en que ruta está almacenado?</li>
+</ul>
+<h2 id="tareas-del-equipo-de-desarrollo">Tareas del equipo de desarrollo</h2>
+<p>Una vez que cada persona del equipo ha clonado y activado el entorno del proyecto, debe ejecutar las siguientes tareas de implementación de forma paralela. Cada integrante trabajará en su propia rama para luego integrar los cambios al repositorio principal.</p>
+<h3 id="persona-a-division-de-datos">Persona A: División de datos</h3>
+<ol>
+<li>
+<p><strong>Crear y cambiar a una nueva rama</strong>:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>division-datos
+</code></pre></div>
+</li>
+<li>
+<p>Agregar el archivo <a href="../recursos/stage4_splitting.py"><code>stage4_splitting.py</code></a> en la carpeta  <code>src/data_eng</code>.</p>
+<p>🛠️ Tarea</p>
+<p>Responda algunas preguntas en la plataforma virtual.</p>
+</li>
+<li>
+<p>Guardar los cambios y subirlos al repositorio remoto:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>src/data_eng/stage4_splitting.py
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Agrega script para dividir datos en train/test&quot;</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>division-datos
+</code></pre></div>
+</li>
+</ol>
+<h3 id="persona-b-entrenamiento-del-modelo">Persona B: Entrenamiento del Modelo</h3>
+<ol>
+<li>
+<p><strong>Crear y cambiar a una nueva rama</strong>:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>entrenamiento-modelo
+</code></pre></div>
+</li>
+<li>
+<p>Agregar el archivo <a href="../recursos/stage1-2_train-evaluate.py"><code>stage1-2_train-evaluate.py</code></a> en la carpeta  <code>src/model_eng/model1</code>.</p>
+<p>🛠️ Tarea</p>
+<p>Responda algunas preguntas en la plataforma virtual.</p>
+</li>
+<li>
+<p>Guardar los cambios y subirlos al repositorio remoto:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>src/model_eng/model1/stage1-2_train-evaluate.py
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Agrega script de entrenamiento y validación del modelo&quot;</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>entrenamiento-modelo
+</code></pre></div>
+</li>
+</ol>
+<h3 id="persona-a-o-b-integrar-ramas-en-main">Persona A ó B: Integrar ramas en <code>main</code></h3>
+<p>Una vez que las tareas de cada persona están completas y no contiene errores, se debe integrar el trabajo en la rama principal (<code>main</code>). Esto lo puede hacer una persona responsable del proyecto o el equipo siguiendo estos pasos:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>main
+git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>main
+git<span class="w"> </span>merge<span class="w"> </span>division-datos
+git<span class="w"> </span>merge<span class="w"> </span>entrenamiento-modelo
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>main
+</code></pre></div>
+<h3 id="persona-a-o-b-prediccion-del-modelo">Persona A ó B: Predicción del Modelo</h3>
+<ol>
+<li>
+<p><strong>Crear y cambiar a una nueva rama</strong>:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>prediccion-modelo
+</code></pre></div>
+</li>
+<li>
+<p>Agregar el archivo <a href="../recursos/stage3_prediction.py"><code>stage3_prediction.py</code></a> en la carpeta  <code>src/model_eng/model1</code>.</p>
+<p>🛠️ Tarea</p>
+<p>Responda algunas preguntas en la plataforma virtual.</p>
+</li>
+<li>
+<p>Guardar los cambios y subirlos al repositorio remoto:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>src/model_eng/model1/stage3_prediction.py
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Agrega script de predicción del modelo&quot;</span>
+git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>prediccion-modelo
+</code></pre></div>
+</li>
+<li>
+<p>Integrar el trabajo en la rama principal (<code>main</code>).</p>
+</li>
+</ol>
+<h3 id="actualizar-el-codigo-local-de-cada-persona">Actualizar el código local de cada persona</h3>
+<p>Una vez que las ramas han sido integradas en la rama principal del repositorio (main), cada integrante del equipo debe actualizar su copia local para trabajar con la versión más reciente del proyecto. A continuación, se indican los pasos recomendados para hacerlo correctamente.</p>
+<ol>
+<li>
+<p>Cambiar a la rama <code>main</code> (si aún no están en ella)</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>main
+</code></pre></div>
+</li>
+<li>
+<p>Actualizar su rama <code>main</code> desde el repositorio remoto:</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>main
+</code></pre></div>
+</li>
+</ol>
+<p>Esto descargará e integrará todos los cambios más recientes realizados por otros (como las integraciones de ramas que hiciste).</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>

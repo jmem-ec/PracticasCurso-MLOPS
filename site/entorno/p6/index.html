@@ -1,0 +1,1309 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../p5/">
+      
+      
+        <link rel="next" href="../../entrenamiento/p7/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Estructura del Proyecto - Maestría en Ciencia Datos - Curso MLOps</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.342714a4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#objetivos" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../.." title="Maestría en Ciencia Datos - Curso MLOps" class="md-header__button md-logo" aria-label="Maestría en Ciencia Datos - Curso MLOps" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Maestría en Ciencia Datos - Curso MLOps
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Estructura del Proyecto
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Maestría en Ciencia Datos - Curso MLOps" class="md-nav__button md-logo" aria-label="Maestría en Ciencia Datos - Curso MLOps" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Maestría en Ciencia Datos - Curso MLOps
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Inicio
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../arquitectura/flujo_proyecto/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Arquitectura del Proyecto
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Ambiente Desarrollo
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Ambiente Desarrollo
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ambiente/p1/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Linea de Comandos
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ambiente/p2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Gestión de Paquetes y Entornos Virtuales
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ambiente/p3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Editor
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Entendimiento del Negocio
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Entendimiento del Negocio
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../negocio/p4/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Alineación Estratégica del Proyecto
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Configuración del Proyecto
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Configuración del Proyecto
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../p5/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Creación del Entorno Virtual
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Estructura del Proyecto
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Estructura del Proyecto
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#objetivos" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 Objetivos
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requisitos-previos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requisitos previos
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#estructura-del-proyecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      Estructura del Proyecto
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instalacion-de-cookiecutter" class="md-nav__link">
+    <span class="md-ellipsis">
+      Instalación de Cookiecutter
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Instalación de Cookiecutter">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tarea" class="md-nav__link">
+    <span class="md-ellipsis">
+      🛠️ Tarea
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explorar-la-estructura-del-proyecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      Explorar la estructura del proyecto
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Explorar la estructura del proyecto">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tarea_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      🛠️ Tarea
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#control-de-versiones-y-github" class="md-nav__link">
+    <span class="md-ellipsis">
+      Control de versiones y GitHub
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Entrenamiento del Modelo
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Entrenamiento del Modelo
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../entrenamiento/p7/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Versionado del Código
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../entrenamiento/p8/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Empaquetado y gestión de dependencias
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../entrenamiento/p9/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Buenas Prácticas de Codificación
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Versionado de Datos
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Versionado de Datos
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../versionado_datos/p10/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Almacenamiento remoto con DVC
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../versionado_datos/p11/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Control de versiones de datos
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../versionado_datos/p12/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Trabajando con Pipelines
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Versionado de Modelos
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Versionado de Modelos
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../versionado_modelo/p13/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Control de Versiones del Modelo
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#objetivos" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 Objetivos
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requisitos-previos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Requisitos previos
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#estructura-del-proyecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      Estructura del Proyecto
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instalacion-de-cookiecutter" class="md-nav__link">
+    <span class="md-ellipsis">
+      Instalación de Cookiecutter
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Instalación de Cookiecutter">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tarea" class="md-nav__link">
+    <span class="md-ellipsis">
+      🛠️ Tarea
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explorar-la-estructura-del-proyecto" class="md-nav__link">
+    <span class="md-ellipsis">
+      Explorar la estructura del proyecto
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Explorar la estructura del proyecto">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tarea_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      🛠️ Tarea
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#control-de-versiones-y-github" class="md-nav__link">
+    <span class="md-ellipsis">
+      Control de versiones y GitHub
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Estructura del Proyecto</h1>
+
+<p>En esta práctica, estableceremos la base para un proyecto de predicción de precios de consignación utilizando herramientas modernas de MLOps. Una vez configurado el entorno de trabajo, el siguiente paso es generar la estructura del proyecto. Para ello, utilizaremos Cookiecutter, una herramienta que permite clonar plantillas con buenas prácticas predefinidas, facilitando así una organización clara y escalable desde el inicio.</p>
+<h2 id="objetivos">🎯 Objetivos</h2>
+<ul>
+<li>Instalar y usar Cookiecutter desde la terminal.</li>
+<li>Clonar un template base de proyecto MLOps.</li>
+<li>Explorar e interpretar la estructura generada.</li>
+</ul>
+<h2 id="requisitos-previos">Requisitos previos</h2>
+<ul>
+<li>Tener instalado y configurado WSL o Linux.</li>
+<li>Tener instalado Conda (miniconda o anaconda).</li>
+</ul>
+<h2 id="estructura-del-proyecto">Estructura del Proyecto</h2>
+<p>Para comenzar con la configuración de un proyecto MLOPS, existen varias formas de crear la carpeta principal</p>
+<ul>
+<li>
+<p><strong>Crear desde cero</strong>:
+Opción directa que implica definir manualmente la estructura y archivos del proyecto.
+No recomendada para proyectos medianos o grandes debido a su dificultad de mantenimiento y escalabilidad.</p>
+</li>
+<li>
+<p><strong>Importar una plantilla existente (recomendada)</strong>:
+Permite estructurar el proyecto de forma eficiente, facilita la colaboración, y mejora la transparencia, reproducibilidad y reutilización.
+Es la opción sugerida para esta práctica.</p>
+</li>
+<li>
+<p><strong>Clonar o hacer fork de un proyecto existente</strong>:
+Ideal para continuar o adaptar proyectos ya desarrollados.
+Soporta colaboración activa y reutilización de código.
+Será usada más adelante en el curso.</p>
+</li>
+</ul>
+<h2 id="instalacion-de-cookiecutter">Instalación de Cookiecutter</h2>
+<p>En esta práctica emplearemos una estructura de proyecto basada en una plantilla de MLOps que puede ser generada utilizando la herramienta cookiecutter. Usaremos el repositorio <a href="https://github.com/Chim-SO/cookiecutter-mlops">Cookiecutter MLOps</a>, el cual está diseñado específicamente para proyectos de aprendizaje automático que requieren una buena organización desde el inicio. </p>
+<ul>
+<li>
+<p>Abre una terminal para crear la carpeta <code>Practica-6</code> dentro de <code>Practicas-MLOPS</code>. En esta carpeta se creará la estructura del proyecto.</p>
+<h4 id="tarea">🛠️ Tarea</h4>
+<p>Supón que has descubierto recientemente la herramienta Cookiecutter, la cual permite generar estructuras de proyecto preconfiguradas a partir de plantillas que siguen buenas prácticas de desarrollo. Deseas aprovechar esta herramienta para organizar adecuadamente tu proyecto de Machine Learning y facilitar el trabajo colaborativo.</p>
+<p>Para continuar con la implementación del proyecto, decides reutilizar el entorno Conda creado previamente en la práctica <a href="../p5/">Creación del Entorno Virtual</a>, ya que en él se encuentran instaladas las dependencias principales como Python y pandas. A partir de ese entorno, continuarás trabajando para estructurar el proyecto correctamente. </p>
+<p>¿Es necesario instalar Cookiecutter dentro del entorno Conda a pesar que esta herramienta solo se utiliza al inicio del proyecto para generar la estructura y no forma parte del código fuente que se ejecutará? <strong>Justifica razonadamente tu respuesta</strong>.</p>
+</li>
+<li>
+<p>En la misma terminal, instala <code>cookiecutter</code>. Hay dos opciones:</p>
+<div class="highlight"><pre><span></span><code>pip3<span class="w"> </span>install<span class="w"> </span>cookiecutter
+conda<span class="w"> </span>install<span class="w"> </span>-c<span class="w"> </span>conda-forge<span class="w"> </span>cookiecutter
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">IMPORTANTE</p>
+<p>Se recomienda instalar herramientas como <code>cookiecutter</code> desde el canal <code>conda-forge</code>, ya que este canal suele ofrecer versiones más actualizadas, bien mantenidas y con mejor compatibilidad entre paquetes en comparación con <code>pip</code> o con el canal por defecto de Conda (defaults). Esto ayuda a evitar conflictos y facilita la gestión del entorno.</p>
+</div>
+</li>
+<li>
+<p>Para clonar la plantilla que contiene la estructura del proyecto puede usar el siguiente comando:</p>
+<div class="highlight"><pre><span></span><code>cookiecutter<span class="w"> </span>https://github.com/Chim-SO/cookiecutter-mlops
+</code></pre></div>
+</li>
+<li>
+<p>Durante la generación del proyecto con la plantilla de Cookiecutter, se te pedirá que proporciones varios parámetros de configuración. Responde a las preguntas que aparecen en consola. Si no deseas modificar un parámetro, simplemente presiona Enter para aceptar su valor predeterminado. La tabla adjunta tiene un ejemplo de cómo llenar los valores.</p>
+<table>
+<thead>
+<tr>
+<th>Pregunta</th>
+<th>Ejemplo de respuesta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>project_name</td>
+<td>ProyectoMLOPS</td>
+</tr>
+<tr>
+<td>repo_name [project_name]</td>
+<td></td>
+</tr>
+<tr>
+<td>author_name</td>
+<td>Mauricio_Espinoza</td>
+</tr>
+<tr>
+<td>description</td>
+<td>Proyecto de predicción usando MLOps</td>
+</tr>
+<tr>
+<td>Select open_source_license:<br>1 - MIT<br>2 - BSD-3-Clause<br>3 - No license file<br>Choose from 1, 2, 3 [1]:</td>
+<td>1</td>
+</tr>
+<tr>
+<td>s3_bucket [[OPTIONAL] your-bucket-for-syncing-data<br> (do not include 's3://')]:</td>
+<td></td>
+</tr>
+<tr>
+<td>aws_profile [default]:</td>
+<td></td>
+</tr>
+<tr>
+<td>Select python_interpreter:<br>1 - python3<br>2 - python<br>Choose from 1, 2 [1]:</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Nota1:</p>
+<p>El campo <strong>s3_bucket [[OPTIONAL] your-bucket-for-syncing-data (do not include 's3://')]</strong>: es opcional y se refiere a un bucket de Amazon S3 que puedes usar para sincronizar datos de tu proyecto, como archivos de entrenamiento, modelos o resultados. Si tu proyecto no utilizará almacenamiento en la nube (o aún no tienes un bucket configurado), puedes dejar este campo en blanco. Solo presiona Enter para aceptar el valor predeterminado y omitir esta configuración por ahora.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Nota2:</p>
+<p>El campo <strong>aws_profile [default]</strong>: se refiere al perfil de configuración de AWS que se puede usar para interactuar con servicios en la nube, como Amazon S3. Estos perfiles se definen en el archivo ~/.aws/credentials y permiten gestionar distintas cuentas o configuraciones de acceso a AWS desde la misma máquina. Si ya tienes configurado un perfil llamado “default” (que es el caso más común), puedes simplemente presionar Enter para aceptarlo. Si usas otro perfil, escribe su nombre aquí. Si aún no has configurado ningún perfil de AWS o no planeas usar servicios de AWS en este proyecto, también puedes dejarlo en blanco presionando Enter.</p>
+</div>
+</li>
+<li>
+<p>Se debe haber creado una carpeta con el nombre del proyecto asignado. Ingresa a dicha carpeta y prueba abrirla en VS Code utilizando el comando <code>code .</code> desde la terminal.</p>
+</li>
+</ul>
+<h2 id="explorar-la-estructura-del-proyecto">Explorar la estructura del proyecto</h2>
+<p>Revisa la estructura del proyecto usando VS Code, deberás encontrar estas carpetas:</p>
+<ul>
+<li>
+<p><strong><code>configs/</code></strong>: Esta carpeta puede contener archivos de   configuración, como los hiperparámetros del modelo. Aquí se definen variables clave para la experimentación y entrenamiento, y facilita modificar la configuración sin alterar el código fuente.</p>
+</li>
+<li>
+<p><strong><code>src/data/</code></strong>: Esta subcarpeta agrupa todos los pasos del procesamiento de datos:</p>
+<ul>
+<li><strong><code>ingestion.py</code></strong>: se encarga de reunir los datos. Aquí también puedes añadir funcionalidades como respaldos, anonimización de datos sensibles o generación de metadatos.</li>
+<li><strong><code>cleaning.py</code></strong>: limpia los datos, reduce el ruido y maneja valores atípicos o faltantes.</li>
+<li><strong><code>labeling.py</code></strong>: asigna etiquetas a los datos si es necesario.</li>
+<li><strong><code>splitting.py</code></strong>: divide los datos en conjuntos de entrenamiento y prueba.</li>
+<li><strong><code>validation.py</code></strong>: valida que los datos estén completos y en formato adecuado para el entrenamiento.</li>
+<li><strong><code>build_features.py</code></strong>: organiza y transforma los datos en características útiles para el modelo.</li>
+</ul>
+</li>
+<li>
+<p><strong><code>src/models/</code></strong>: Contiene los scripts específicos del modelo.</p>
+<ul>
+<li><strong><code>model.py</code></strong>: define la arquitectura del modelo.</li>
+<li><strong><code>dataloader.py</code></strong>: prepara los datos para ser usados en el modelo.</li>
+<li><strong><code>preprocessing.py</code></strong>: incluye funciones de preprocesamiento específicas de este modelo</li>
+<li><strong><code>train.py</code></strong>: entrena el modelo con los datos.</li>
+<li><strong><code>hyperparameters_tuning.py</code></strong>: ajusta los hiperparámetros del modelo.</li>
+<li><strong><code>predict.py</code></strong>: realiza predicciones sobre nuevas instancias (por ejemplo, imágenes) externas al conjunto de datos original.</li>
+</ul>
+</li>
+<li>
+<p><strong><code>src/visualization/</code></strong></p>
+<ul>
+<li><strong><code>exploration.py</code></strong>: visualiza los datos para entender su distribución y características durante la etapa de ingeniería.</li>
+<li><strong><code>evaluation.py</code></strong>: visualiza resultados del entrenamiento y ayuda a interpretar el rendimiento del modelo.</li>
+</ul>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title"><strong>Notas importantes</strong></p>
+<ul>
+<li>Esta plantilla es básica y puede adaptarse según las necesidades del proyecto: <strong>puedes eliminar o añadir carpetas y scripts</strong>.</li>
+<li>Si varias arquitecturas de modelo usan el mismo preprocesamiento, puedes mover el archivo <code>preprocessing.py</code> a la carpeta <code>data</code> para evitar duplicación, aunque mantenerlo separado puede facilitar la reutilización y evitar errores.</li>
+<li>El script <code>predict.py</code> asume que la predicción se hace sobre datos externos a la base original (como los enviados por una app), por lo que puede requerir pasos adicionales de preprocesamiento.</li>
+</ul>
+</div>
+<h4 id="tarea_1">🛠️ Tarea</h4>
+<ul>
+<li>
+<p>Responde las preguntas propuestas en la plataforma virtual sobre la estructura de la plantilla basándote en tu criterio técnico. Puedes apoyarte en la documentación proporcionada por el autor en el <a href="https://github.com/Chim-SO/cookiecutter-mlops">repositorio del proyecto en GitHub</a> para justificar tus respuestas.</p>
+</li>
+<li>
+<p>Copia el archivo <code>estadisticas.py</code> generado en la práctica <a href="../p5/">Creación del Entorno Virtual</a> dentro de una de las carpetas del proyecto creado con Cookiecutter. ¿En donde debería alojarse este archivo? Justifica tu respuesta.</p>
+</li>
+<li>
+<p>Una vez copiado el archivo, accede al mismo y verifica que se ejecuta correctamente desde la terminal o directamente desde VS Code, asegurándote de que esté activado el entorno Conda correspondiente.</p>
+</li>
+<li>
+<p>Copia el archivo <code>environment.yml</code> generado en la <a href="../p5/">práctica anterior</a> a la raíz del proyecto. ¿Qué comando puedes utilizar para actualizar el entorno Conda actual?</p>
+</li>
+<li>
+<p>Verifica que el archivo <code>environment.yml</code> contiene ahora tres librerias.</p>
+<ul>
+<li>python=3.11</li>
+<li>pandas=1.5.3</li>
+<li>cookiecuttier</li>
+</ul>
+</li>
+</ul>
+<h2 id="control-de-versiones-y-github">Control de versiones y GitHub</h2>
+<p>Esta estructura de proyecto que has creado y organizado usando la plantilla Cookiecutter, puede ser fácilmente integrado con un sistema de control de versiones como Git, y alojado en una plataforma como GitHub. Esto te permitirá continuar con el desarrollo del proyecto, mantener un historial de cambios, y colaborar con otros de manera más efectiva.</p>
+<div class="admonition warning">
+<p class="admonition-title"><strong>Nota informativa</strong></p>
+<p>A continuación, se describen los pasos y comandos esenciales para subir tu proyecto local a un nuevo repositorio vacío en GitHub. <strong>No los ejecutes aún</strong>, ya que se utilizarán más adelante en otra práctica.</p>
+</div>
+<ol>
+<li>Inicializa un repositorio local (si aún no lo hiciste):
+<code>git init</code></li>
+<li>Agrega los archivos al repositorio:
+<code>git add .</code></li>
+<li>Crea un commit inicial:
+<code>git commit -m "Primer commit del proyecto de predicción de precios de consignación"</code></li>
+<li>Agrega la URL de tu repositorio remoto (cámbiala por la tuya):
+<code>git remote add origin https://github.com/tu-usuario/tu-repo.git</code></li>
+<li>Sube tu proyecto:
+<code>git push -u origin main</code></li>
+</ol>
+<p>Si el branch por defecto en tu GitHub es main, asegúrate de estar en ese branch localmente usando <code>git branch -M main.</code></p>
+<p>En la práctica <a href="../../entrenamiento/p7/">Versionado del Código</a>, en <strong><strong>lugar de crear un proyecto desde cero</strong></strong>, trabajaremos <strong><strong>clonando un proyecto existente en GitHub</strong></strong> basado en esta misma plantilla. Esto refleja un flujo de trabajo común en la industria, donde se parte de un repositorio compartido para contribuir con nuevas funcionalidades, en este caso, enfocadas en implementar el proceso de predicción.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>
