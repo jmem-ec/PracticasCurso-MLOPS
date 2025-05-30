@@ -1,0 +1,30 @@
+site_name: Maestría en Ciencia Datos - Curso MLOps
+theme:
+  name: material #readthedocs
+  highlightjs: true
+  language: es
+nav:
+  - Inicio: index.md
+  - Arquitectura del Proyecto: arquitectura/flujo_proyecto.md
+  - Ambiente Desarrollo: 
+      - Linea de Comandos: ambiente/p1.md
+      - Gestión de Paquetes y Entornos Virtuales: ambiente/p2.md
+      - Editor: ambiente/p3.md
+  - Entendimiento del Negocio:
+      - Alineación Estratégica del Proyecto: negocio/p4.md
+  - Configuración del Proyecto:
+      - Creación del Entorno Virtual: entorno/p5.md
+      - Estructura del Proyecto: entorno/p6.md
+  - Entrenamiento del Modelo:
+      - Versionado del Código: entrenamiento/p7.md
+      - Empaquetado y gestión de dependencias: entrenamiento/p8.md
+      - Buenas Prácticas de Codificación: entrenamiento/p9.md
+  - Versionado de Datos:
+      - Almacenamiento remoto con DVC: versionado_datos/p10.md
+      - Control de versiones de datos: versionado_datos/p11.md
+      - Trabajando con Pipelines: versionado_datos/p12.md
+  - Versionado de Modelos:
+      - Control de Versiones del Modelo: versionado_modelo/p13.md
+markdown_extensions:
+  - admonition
+  - pymdownx.superfences
