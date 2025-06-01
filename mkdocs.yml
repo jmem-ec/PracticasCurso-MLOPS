@@ -18,7 +18,7 @@ nav:
   - Entrenamiento del Modelo:
       - Versionado del Código: entrenamiento/p7.md
       - Empaquetado y gestión de dependencias: entrenamiento/p8.md
-      - Configuración, ejecución y buenas prácticas de codificación: entrenamiento/p9.md
+      - Buenas prácticas de codificación: entrenamiento/p9.md
   - Versionado de Datos:
       - Almacenamiento remoto con DVC: versionado_datos/p10.md
       - Control de versiones de datos: versionado_datos/p11.md
