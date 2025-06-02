@@ -771,6 +771,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#2-configurar-git-para-registrar-los-archivos-dvc" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Configurar Git para registrar los archivos DVC
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#2-agregar-archivo-de-datos-para-seguimiento" class="md-nav__link">
     <span class="md-ellipsis">
       2. Agregar archivo de datos para seguimiento
@@ -1004,6 +1013,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#2-configurar-git-para-registrar-los-archivos-dvc" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Configurar Git para registrar los archivos DVC
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#2-agregar-archivo-de-datos-para-seguimiento" class="md-nav__link">
     <span class="md-ellipsis">
       2. Agregar archivo de datos para seguimiento
@@ -1093,41 +1111,46 @@
 <ul>
 <li>Tienes configurado un entorno Conda con DVC instalado.</li>
 <li>El repositorio ya tiene configurado el acceso remoto a Google Drive y/o Google Cloud Storage.</li>
-<li>El archivo de datos <code>data/dataset.csv</code> ya existe en el repositorio local y ha sido agregado al proyecto.</li>
+<li>El archivo que contiene los datos para entrenamiento del modelo (<code>data/raw/Dataset.csv</code>), ya existe en el repositorio local y ha sido agregado al proyecto.</li>
 </ul>
 <h2 id="flujo-de-trabajo-tipico-para-el-versionado-de-datos-con-dvc">Flujo de trabajo típico para el versionado de datos con DVC</h2>
 <p>Una vez configurado el almacenamiento remoto (Google Drive, por ejemplo), puedes comenzar a versionar sus datos de manera sencilla y eficiente.</p>
 <h3 id="1-inicializar-dvc-en-el-proyecto-si-aun-no-esta-hecho">1. Inicializar DVC en el proyecto (si aún no está hecho)</h3>
 <div class="highlight"><pre><span></span><code>dvc<span class="w"> </span>init
-git<span class="w"> </span>add<span class="w"> </span>.dvc<span class="w"> </span>.gitignore
+</code></pre></div>
+<blockquote>
+<p>Recuerda, este comando <strong>crea la carpeta <code>.dvc/</code></strong> y <strong>archivos de configuración</strong> necesarios para que DVC funcione. </p>
+</blockquote>
+<h3 id="2-configurar-git-para-registrar-los-archivos-dvc">2. Configurar Git para registrar los archivos DVC</h3>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>.dvc<span class="w"> </span>.gitignore
 git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Inicializa DVC en el proyecto&quot;</span>
 </code></pre></div>
 <ul>
-<li><strong>dvc init</strong>: Crea la carpeta .dvc/ y archivos de configuración necesarios para que DVC funcione. Es similar a git init, pero para el control de versiones de datos.</li>
 <li><strong>git add .dvc .gitignore</strong>: Agrega a Git los archivos generados por DVC.
 .dvc/ contiene la configuración de DVC y .gitignore se actualiza para evitar que Git rastree archivos de datos grandes (que ahora serán manejados por DVC).</li>
 <li><strong>git commit -m "Inicializa DVC en el proyecto"</strong>: Guarda estos cambios en el historial de Git.</li>
 </ul>
 <h3 id="2-agregar-archivo-de-datos-para-seguimiento">2. Agregar archivo de datos para seguimiento</h3>
-<p>Supongamos que has descargado un archivo, por ejemplo <code>dataset.csv</code>, dentro de tu carpeta data/ y quieres poner este archivo bajo el control de versiones de datos de tu proyecto. El primer paso es agregarlo al control local de DVC y a su caché con el comando:</p>
-<div class="highlight"><pre><span></span><code>dvc<span class="w"> </span>add<span class="w"> </span>data/dataset.csv
-git<span class="w"> </span>add<span class="w"> </span>data/dataset.csv.dvc<span class="w"> </span>.gitignore
-git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Agrega archivo dataset.csv al seguimiento de DVC&quot;</span>
+<p>En este proyecto, el archivo de datos para entrenar el modelo se genera automáticamente al ejecutar el script <code>data_eng/stage1_ingestion.py</code>, el cual copia la fuente de datos a la carpeta <code>data/raw/</code> con el nombre <code>Dataset.csv</code>, de acuerdo con la configuración establecida en el archivo <code>configs/data_eng.yaml</code>.</p>
+<p>Para incluir este archivo bajo el control de versiones de datos del proyecto, el primer paso es registrarlo en el seguimiento local de DVC y almacenarlo en la caché con el siguiente comando:</p>
+<div class="highlight"><pre><span></span><code>dvc<span class="w"> </span>add<span class="w"> </span>data/raw/Dataset.csv
+git<span class="w"> </span>add<span class="w"> </span>data/raw/Dataset.csv.dvc<span class="w"> </span>.gitignore
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Agrega archivo Dataset.csv al seguimiento de DVC&quot;</span>
 </code></pre></div>
 <ul>
 <li>
-<p><strong>dvc add data/dataset.csv</strong>: Este comando funciona de manera similar a <code>git add</code>. Tu conjunto de datos ahora está bajo control local de DVC y almacenado en su caché (por defecto local, aunque se puede configurar para ser compartido).</p>
+<p><strong>dvc add data/raw/dataset.csv</strong>: Este comando funciona de manera similar a <code>git add</code>. Tu conjunto de datos ahora está bajo control local de DVC y almacenado en su caché (por defecto local, aunque se puede configurar para ser compartido).</p>
 <p>Al ejecutar este comando, DVC genera dos archivos en la carpeta donde está tu dato:</p>
 <ul>
-<li><strong>dataset.csv.dvc</strong>: Este archivo contiene la referencia a la ubicación real de tu archivo y cambia cada vez que el archivo de datos se modifica.</li>
+<li><strong>Dataset.csv.dvc</strong>: Este archivo contiene la referencia a la ubicación real de tu archivo y cambia cada vez que el archivo de datos se modifica.</li>
 <li><strong>.gitignore</strong>: Este archivo evita que Git suba el archivo de datos real al repositorio, evitando que el repositorio se llene de archivos pesados. DVC lo crea automáticamente.</li>
 </ul>
-<p>Estos archivos .dvc son archivos YAML que guardan información clave sobre tu archivo de datos, incluyendo un hash MD5 que se recalcula cada vez que el archivo cambia. Esto permite a tu equipo seguir los cambios en los datos de forma segura y confiable.</p>
+<p>Estos archivos <code>.dvc</code> son archivos YAML que guardan información clave sobre tu archivo de datos, incluyendo un hash MD5 que se recalcula cada vez que el archivo cambia. Esto permite a tu equipo seguir los cambios en los datos de forma segura y confiable.</p>
 </li>
 </ul>
 <h3 id="3-sincronizar-datos-con-el-almacenamiento-remoto">3. Sincronizar datos con el almacenamiento remoto</h3>
 <p>Para subir los datos versionados a tu almacenamiento remoto (Google Drive), usa:</p>
-<div class="highlight"><pre><span></span><code>dvc<span class="w"> </span>push<span class="w"> </span>data/dataset.csv
+<div class="highlight"><pre><span></span><code>dvc<span class="w"> </span>push<span class="w"> </span>data/raw/Dataset.csv
 git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;data push&quot;</span>
 </code></pre></div>
 <p>Esto enviará el archivo al almacenamiento remoto configurado. Luego, realiza un commit en Git para registrar este cambio:</p>
@@ -1136,7 +1159,7 @@ git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </sp
 </blockquote>
 <h3 id="recuperar-datos">Recuperar datos</h3>
 <p>Si en algún momento eliminas el archivo original de datos, puedes recuperarlo fácilmente ejecutando:</p>
-<div class="highlight"><pre><span></span><code>dvc<span class="w"> </span>checkout<span class="w"> </span>data/dataset.csv.dvc
+<div class="highlight"><pre><span></span><code>dvc<span class="w"> </span>checkout<span class="w"> </span>data/raw/Dataset.csv.dvc
 </code></pre></div>
 <p>Esto restaurará el archivo de datos tal como estaba bajo la versión controlada.</p>
 <h3 id="descargar-datos">Descargar datos</h3>
@@ -1149,12 +1172,12 @@ dvc<span class="w"> </span>pull
 <ul>
 <li>
 <p>Simula la eliminación del archivo de datos local:</p>
-<div class="highlight"><pre><span></span><code>rm<span class="w"> </span>data/dataset.csv
+<div class="highlight"><pre><span></span><code>rm<span class="w"> </span>data/raw/Dataset.csv
 </code></pre></div>
 </li>
 <li>
 <p>Verifica que el archivo ya no está:</p>
-<div class="highlight"><pre><span></span><code>ls<span class="w"> </span>data/
+<div class="highlight"><pre><span></span><code>ls<span class="w"> </span>data/raw/
 </code></pre></div>
 </li>
 <li>
@@ -1164,11 +1187,11 @@ dvc<span class="w"> </span>pull
 </li>
 </ul>
 <blockquote>
-<p>✅ Esto restaura <code>dataset.csv</code> desde el remoto. Ideal para trabajar en diferentes máquinas o recuperar archivos perdidos.</p>
+<p>✅ Esto restaura <code>data/raw/Dataset.csv</code> desde el remoto. Ideal para trabajar en diferentes máquinas o recuperar archivos perdidos.</p>
 </blockquote>
 <h3 id="extra-ver-historial-de-versiones">📌 Extra: Ver historial de versiones</h3>
 <p>Puedes volver a una versión anterior del archivo de datos siguiendo estos pasos:</p>
-<p><div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>&lt;hash_version_anterior&gt;<span class="w"> </span>data/dataset.csv.dvc
+<p><div class="highlight"><pre><span></span><code>git<span class="w"> </span>checkout<span class="w"> </span>&lt;hash_version_anterior&gt;<span class="w"> </span>data/raw/Dataset.csv.dvc
 dvc<span class="w"> </span>checkout
 </code></pre></div>
 Esto restaurará el estado del archivo a la versión vinculada con ese commit específico.</p>
