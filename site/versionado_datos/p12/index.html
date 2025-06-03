@@ -954,10 +954,10 @@
 
   <h1>Trabajando con Pipelines</h1>
 
-<p>Después de aprender a versionar datos y modelos con DVC, el siguiente paso es automatizar y estructurar nuestros flujos de trabajo mediante la construcción de un pipeline de experimentos. Un pipeline permite encadenar etapas del proceso (por ejemplo, preprocesamiento, entrenamiento y evaluación) de forma reproducible y trazable, facilitando el trabajo colaborativo y la experimentación sistemática.</p>
-<p>Esta práctica está basada en el dataset previamente versionado con DVC. El dataset de la sección anterior es la fuente de datos para entrenar un modelo de predicción. Consideremos que nuestro experimento tiene tres etapas principales:</p>
+<p>Después de configurar el almacenamiento remoto y configurar el inicio de un proyecto DVC para versionar datos y modelos, el siguiente paso es automatizar y estructurar flujos de trabajo mediante la construcción de un pipeline de experimentos. Un pipeline permite encadenar etapas del proceso (por ejemplo, preprocesamiento, entrenamiento y evaluación) de forma reproducible y trazable, facilitando el trabajo colaborativo y la experimentación sistemática.</p>
+<p>Esta práctica está basada en el conjunto de datos previamente versionado con DVC (<code>data/raw/Dataset.csv</code>). Este archivo es la fuente de datos para entrenar el modelo de predicción. Consideremos que nuestro experimento tiene tres etapas principales:</p>
 <ul>
-<li>Preprocesamiento de datos (extracción de características, limpieza, etc.)</li>
+<li>Preprocesamiento de datos (limpieza, extracción de características, y división de datos)</li>
 <li>Entrenamiento del modelo</li>
 <li>Evaluación del modelo</li>
 </ul>
@@ -977,7 +977,7 @@
 </ul>
 <div class="admonition warning">
 <p class="admonition-title">Advertencia:</p>
-<p>Los pipelines propuestos a continuación están basados en la estrucutura del repositorio (creado en la práctica <a href="../../entorno/p5/">Estructura del Proyecto</a>. Sin embargo, es posible crear otros scripts y crear pipelines específicos para las necesidades de su proyecto.</p>
+<p>Los pipelines propuestos a continuación están basados en la estructura del repositorio (creado en la práctica <a href="../../entorno/p5/">Estructura del Proyecto</a> y especializado en las prácticas <a href="../../entrenamiento/p7/">Versionado del Código</a>, <a href="../../entrenamiento/p8/">Empaquetado y gestión de dependencias</a> y <a href="../../entrenamiento/p9/">Buenas prácticas de codificación</a>). Sin embargo, es posible crear otros scripts y crear pipelines específicos para las necesidades de su proyecto.</p>
 </div>
 <h2 id="creacion-de-pipelines">Creación de pipelines</h2>
 <p>DVC construye un pipeline basado en tres componentes: Entradas (Inputs), Salidas (Outputs) y Comando (Command). Por ejemplo, para la etapa de preprocesamiento, estos serían los componentes:</p>
