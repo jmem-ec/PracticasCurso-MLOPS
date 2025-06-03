@@ -1205,9 +1205,9 @@ También puede usar <code>pip install "dvc[gdrive, gcs]"</code></p>
 </li>
 </ol>
 <h2 id="parte-1-configurar-google-drive-como-almacenamiento-remoto-en-dvc">Parte 1: Configurar Google Drive como almacenamiento remoto en DVC</h2>
-<p>Google Drive puede usarse como un almacenamiento remoto para proyectos gestionados con DVC. Esta opción es útil para proyectos colaborativos que usan almacenamiento en la nube gratuito y accesible. A continuación se detallan los pasos para conectar tu proyecto a Google Drive.</p>
+<p>Google Drive puede usarse como un almacenamiento remoto para proyectos gestionados con DVC. Esta opción es útil para proyectos colaborativos que usan <strong>almacenamiento en la nube gratuito y accesible</strong>. A continuación se detallan los pasos para conectar el proyecto a Google Drive.</p>
 <h3 id="obtener-credenciales-para-conectar-dvc-con-google-drive">🔐 Obtener credenciales para conectar DVC con Google Drive</h3>
-<p>En la <a href="https://dvc.org/doc/user-guide/data-management/remote-storage/google-drive">guía oficial de DVC para la configuración de almacenamiento remoto con Google Drive</a> se describen varias formas de conexión. Sin embargo, para este proyecto se recomienda configurar una cuenta de servicio para conectar el almacenamiento remoto con tu proyecto DVC.</p>
+<p>En la <a href="https://dvc.org/doc/user-guide/data-management/remote-storage/google-drive">guía oficial de DVC para la configuración de almacenamiento remoto con Google Drive</a> se describen varias formas de conexión. Sin embargo, para este proyecto se recomienda configurar una <strong>cuenta de servicio</strong> para conectar el almacenamiento remoto con tu proyecto DVC.</p>
 <p>Esta opción ofrece varias ventajas, especialmente en escenarios donde el acceso a los datos debe realizarse de forma automática, como en entornos de cómputo en la nube, procesos de integración y entrega continua (CI/CD), entre otros. A diferencia de la autenticación interactiva con OAuth, el uso de una cuenta de servicio permite el acceso sin intervención manual del usuario.</p>
 <ol>
 <li>
@@ -1268,6 +1268,18 @@ También puede usar <code>pip install "dvc[gdrive, gcs]"</code></p>
 </ol>
 <blockquote>
 <p>📝 Este archivo de credenciales será utilizado por DVC como mecanismo de autenticación al conectarse con Google Cloud.</p>
+<p>Recuerda que <strong>no es una buena idea compartir este archivo</strong> por razones de seguridad:</p>
+<ul>
+<li>Contiene una clave privada que permite autenticarse como la cuenta de servicio.</li>
+<li>Si alguien obtiene el archivo, puede acceder a los recursos de Google Cloud o Drive como si fuera esa cuenta.</li>
+</ul>
+<p>Una opción recomendable es :</p>
+<ol>
+<li>Agregar el archivo <code>.json</code> a tu <code>.gitignore</code></li>
+<li>Cada miembro del equipo descarga el archivo por separado desde una ubicación segura.</li>
+<li>Usar una variable de entorno para apuntar a la ruta del archivo</li>
+</ol>
+<p>!! Más adelante podrás pensar en otras opciones de seguridad!!.</p>
 </blockquote>
 <h3 id="crear-y-conectar-una-carpeta-en-google-drive">Crear y conectar una carpeta en Google Drive</h3>
 <ol>
