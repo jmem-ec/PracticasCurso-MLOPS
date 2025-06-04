@@ -781,12 +781,51 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Creación de pipelines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#probar-la-primera-etapa" class="md-nav__link">
+    <span class="md-ellipsis">
+      Probar la primera etapa
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Probar la primera etapa">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-hace-dvc-repro" class="md-nav__link">
+    <span class="md-ellipsis">
+      ¿Qué hace dvc repro?
+    </span>
+  </a>
+  
 </li>
-      
-        <li class="md-nav__item">
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#actualizacion-de-las-demas-etapas-del-pipeline" class="md-nav__link">
     <span class="md-ellipsis">
       Actualización de las demás etapas del pipeline
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejecutar-experimentos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ejecutar experimentos
     </span>
   </a>
   
@@ -934,12 +973,51 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Creación de pipelines">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#probar-la-primera-etapa" class="md-nav__link">
+    <span class="md-ellipsis">
+      Probar la primera etapa
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Probar la primera etapa">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-hace-dvc-repro" class="md-nav__link">
+    <span class="md-ellipsis">
+      ¿Qué hace dvc repro?
+    </span>
+  </a>
+  
 </li>
-      
-        <li class="md-nav__item">
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#actualizacion-de-las-demas-etapas-del-pipeline" class="md-nav__link">
     <span class="md-ellipsis">
       Actualización de las demás etapas del pipeline
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejecutar-experimentos" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ejecutar experimentos
     </span>
   </a>
   
@@ -1024,8 +1102,7 @@
 <p class="admonition-title">Consejo</p>
 <p>Los archivos de salida se agregan al control de DVC cuando reproduces una etapa de DVC. Cuando finalices tu experimento, recuerda usar dvc push para versionar no solo los datos usados sino también los resultados generados durante el experimento.</p>
 </div>
-<p>En este punto, es posible que hayas notado que se crearon dos archivos nuevos: <code>dvc.yaml</code> y <code>dvc.lock</code>.
-El primero es responsable de guardar lo que se describió en cada comando <code>dvc stage add</code>. Por lo tanto, si deseas crear o modificar una etapa específica, es posible editar directamente el archivo <code>dvc.yaml</code>. El archivo actual se vería así:</p>
+<p>En este punto, es posible que hayas notado que se creo un nuevo archivo: <code>dvc.yaml</code>. Este archivo es responsable de guardar lo que se describió en cada comando <code>dvc stage add</code>. Por lo tanto, si deseas crear o modificar una etapa específica, es posible editar directamente el archivo <code>dvc.yaml</code>. El archivo actual se vería así:</p>
 <div class="highlight"><pre><span></span><code>stages:
 <span class="w">  </span>limpieza:
 <span class="w">    </span>cmd:<span class="w"> </span>python3<span class="w"> </span>src/data_eng/stage2_cleaning.py
@@ -1035,10 +1112,26 @@ El primero es responsable de guardar lo que se describió en cada comando <code>
 <span class="w">    </span>outs:
 <span class="w">    </span>-<span class="w"> </span>data/interim/Cleaned_Dataset.csv
 </code></pre></div>
-<p>El segundo archivo creado es <code>dvc.lock</code>. Este también es un archivo YAML y su función es similar a los archivos <code>.dvc</code>. En su interior, podemos encontrar la ruta y un código hash para cada archivo de cada etapa, lo que permite a DVC hacer seguimiento de los cambios. Este seguimiento es importante porque ahora DVC puede saber cuándo una etapa debe ejecutarse de nuevo o no, basándose en si sus dependencias cambiaron.
-El pipeline actual se ve así:</p>
+<p>El pipeline actual se ve así:</p>
 <p><img alt="Pipeline_1" src="../recursos/FaseLimpieza.png" /></p>
-<h2 id="actualizacion-de-las-demas-etapas-del-pipeline">Actualización de las demás etapas del pipeline</h2>
+<h3 id="probar-la-primera-etapa">Probar la primera etapa</h3>
+<p>Una vez que se ha creado una etapa del pipeline usando <code>dvc stage add</code>, ya es posible probar la ejecución del pipeline utilizando el comando:</p>
+<p><div class="highlight"><pre><span></span><code>dvd<span class="w"> </span>repro
+</code></pre></div>
+Por ahora, el pipeline cuenta únicamente con una etapa llamada <code>limpieza</code>, la cual se encarga del preprocesamiento inicial de los datos. Sin embargo, más adelante se integrarán otras fases como extracción de características, division de datos, entrenamiento y evaluación del modelo.</p>
+<h4 id="que-hace-dvc-repro">¿Qué hace dvc repro?</h4>
+<ul>
+<li>Ejecuta las etapas necesarias del pipeline en el orden definido por sus dependencias.</li>
+<li>Reproduce etapas automáticamente solo si detecta que alguna dependencia ha cambiado (por ejemplo, si se modificó un archivo de entrada o un parámetro).</li>
+<li>Encadena etapas si hay varias definidas y conectadas entre sí.</li>
+</ul>
+<p>Cada vez que se ejecuta <code>dvc repro</code>, DVC genera o actualiza el archivo <code>dvc.lock</code>. Este también es un archivo YAML y su función es similar a los archivos <code>.dvc</code>. En su interior, podemos encontrar la ruta y un código hash para cada archivo de cada etapa, lo que permite a DVC hacer seguimiento de los cambios. Este seguimiento es importante porque ahora DVC puede saber cuándo una etapa debe ejecutarse de nuevo o no, basándose en si sus dependencias cambiaron.</p>
+<p>🛠️ Tarea</p>
+<p>La primera vez que ejecutaste <code>dvc repro</code>, se ejecutó por completo la etapa de limpieza, generando los archivos de salida correspondientes.</p>
+<ul>
+<li>¿Qué ocurre si vuelves a ejecutar <code>dvc repro</code> sin realizar ningún cambio en los datos, parámetros o código?. Responde la pregunta en la plataforma virtual.</li>
+</ul>
+<h3 id="actualizacion-de-las-demas-etapas-del-pipeline">Actualización de las demás etapas del pipeline</h3>
 <p>A partir de este punto, puedes definir y actualizar las siguientes etapas del pipeline directamente en el archivo <code>dvc.yaml</code>. Cada tarea o paso del flujo de trabajo se especifica como una etapa (stage) dentro de dicho archivo, siguiendo la estructura del pipeline. Por ejemplo:</p>
 <div class="highlight"><pre><span></span><code><span class="nt">stages</span><span class="p">:</span>
 <span class="w">  </span><span class="nt">limpieza</span><span class="p">:</span>
@@ -1081,6 +1174,8 @@ El pipeline actual se ve así:</p>
 <span class="w">    </span><span class="nt">metrics</span><span class="p">:</span>
 <span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reports/scores.json</span>
 </code></pre></div>
+<p>El pipeline que representa el proyecto quedaría así:</p>
+<p><img alt="Pipeline_2" src="../recursos/Pipeline.png" /></p>
 <p>Entre las etapas definidas en el archivo <code>dvc.yaml</code>, a continuación se describe en detalle la etapa <strong>entrenamiento_evaluacion</strong>:</p>
 <p>Esta etapa forma parte del pipeline de DVC y tiene como objetivo entrenar y evaluar el modelo de aprendizaje automático utilizando conjuntos de datos previamente procesados:</p>
 <ul>
@@ -1126,21 +1221,95 @@ El pipeline actual se ve así:</p>
 <ul>
 <li><code>reports/scores.json</code></li>
 </ul>
-<p>En DVC las métricas se pueden mostrar, comparar entre versiones y usarlas en visualizaciones. Para el caso del proyecto las métricas a incluir están en el archivo JSON <code>reports/scores.json</code>, el cual contiene métricas del modelo, como rmse, r2_score, mse, train_score, etc. </p>
+<p>En DVC las métricas se pueden mostrar, comparar entre versiones y usarlas en visualizaciones. Para el caso del proyecto las métricas a incluir están en el archivo JSON <code>reports/scores.json</code>, el cual contiene métricas del modelo como: rmse, r2_score, mse, train_score, etc. </p>
 </li>
 </ul>
-<p>El pipeline que representa el proyecto quedaría así:</p>
-<p><img alt="Pipeline_2" src="../recursos/Pipeline.png" /></p>
-<h2 id="generar-metricas">Generar métricas</h2>
-<p>Es importante notar que en la etapa <strong>entrenamiento_evaluacion</strong> usamos la opción <code>metrics</code>. Esto es relevante porque ahora podemos almacenar las métricas generadas por cada experimento.
-Si ejecutamos el comando:</p>
+<p>🛠️ Tarea</p>
+<ul>
+<li>
+<p>Una vez definido todo el pipeline del proyecto vuelve a ejecuar el comando <code>dvc repro</code>, para comprobar que todo funciona correctamente. </p>
+<p>📌 Observa cuidadosamente qué etapas no se ejecutan: si DVC detecta que sus dependencias y salidas no han cambiado, las considerará actualizadas y omitirá su ejecución. </p>
+<p>Este comportamiento confirma que la lógica de seguimiento de cambios del pipeline está funcionando como se espera. Responda las preguntas en la plataforma virtual.</p>
+<div class="admonition note">
+<p class="admonition-title">Reproducibilidad garantizada con <code>dvc repro</code></p>
+<p>Cualquier persona que acceda a tu proyecto (por ejemplo, clonándolo desde Git y teniendo acceso al almacenamiento remoto de DVC) puede ejecutar:</p>
+<div class="highlight"><pre><span></span><code>dvc<span class="w"> </span>repro
+</code></pre></div>
+<p>y así reconstruir automáticamente todos los resultados del pipeline, de forma reproducible y en el mismo orden en que fueron generados originalmente.</p>
+<p>Esto es posible porque los archivos <code>dvc.yaml</code> y <code>dvc.lock</code> contienen toda la información necesaria sobre:</p>
+<ul>
+<li>Las etapas del pipeline.</li>
+<li>Los comandos utilizados.</li>
+<li>Los archivos de entrada y salida.</li>
+<li>Los parámetros utilizados.</li>
+</ul>
+<p>💡 Esto asegura que los experimentos sean totalmente trazables, repetibles y colaborativos. para <strong>reconstruir resultados reproducibles</strong>.</p>
+</div>
+</li>
+<li>
+<p>Modifica la sección <code>params</code>: dentro del archivo <code>dvc.yaml</code>, reemplazando el parámetro:
+<code>RandomizedSearchCV.scoring</code> por <code>RandomizedSearchCV.cv</code>, suponiendo que por un error se escogió el incorrecto. Mientras que <code>scoring</code> se refiere a la métrica utilizada para evaluar los modelos, el parámetro que realmente se quería controlar era <code>cv</code>, el cual define el número de particiones utilizadas en la validación cruzada (cross-validation).</p>
+<p>¿Qué etapas se volvieron a ejecutar?. Responde las preguntas en la plataforma virtual.</p>
+</li>
+<li>
+<p>Muestra las métricas del estado más reciente de tu proyecto reproducido con DVC. Para ello puedes usar el comando:</p>
 <div class="highlight"><pre><span></span><code>dvc<span class="w"> </span>metrics<span class="w"> </span>show
 </code></pre></div>
-<p>podremos ver qué tan bueno fue el experimento, ya que este comando muestra las métricas guardadas en el archivo <code>scores.json</code>.</p>
-<div class="highlight"><pre><span></span><code>$<span class="w"> </span>dvc<span class="w"> </span>metrics<span class="w"> </span>show
-Path<span class="w">                  </span>accuracy<span class="w">    </span>f1<span class="w">       </span>precision<span class="w">    </span>recall<span class="w">        </span>
-results/scores.json<span class="w">  </span><span class="m">0</span>.84973<span class="w">     </span><span class="m">0</span>.90747<span class="w">  </span><span class="m">0</span>.8719<span class="w">       </span><span class="m">0</span>.94607
+<p>Este comando muestra las métricas actuales guardadas en los archivos definidos en <code>metrics:</code> dentro de <code>dvc.yaml</code>. Responde la pregunta en la plataforma virtual.</p>
+</li>
+</ul>
+<h2 id="ejecutar-experimentos">Ejecutar experimentos</h2>
+<p>Una característica fundamental de DVC es que permite ejecutar experimentos reproducibles sobre tus pipelines de Machine Learning. Los experimentos en DVC son variantes del pipeline que pueden modificar parámetros, datos o código, sin alterar tu rama principal de Git. Esto es ideal para comparar modelos y evaluar distintas configuraciones de entrenamiento.</p>
+<p>Los experimentos:</p>
+<ul>
+<li>Se ejecutan con <code>dvc exp run</code>.</li>
+<li>Pueden modificar parámetros fácilmente usando <code>--set-param (-S)</code>.</li>
+<li>Se almacenan como commits temporales y se pueden comparar con métricas y gráficos.</li>
+<li>Se pueden promover a Git si se desea conservar.</li>
+</ul>
+<p>A continuación se propone un par de experimentos con diferentes valores de parámetros:</p>
+<ul>
+<li>
+<p>Paso 1: Ejecutar el primer experimento
+  <div class="highlight"><pre><span></span><code>dvc<span class="w"> </span>exp<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>--name<span class="w"> </span>exp1_cv3_n10<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-S<span class="w"> </span>configs/model_eng.yaml:RandomizedSearchCV.cv<span class="o">=</span><span class="m">3</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-S<span class="w"> </span>configs/model_eng.yaml:RandomizedSearchCV.n_iter<span class="o">=</span><span class="m">10</span>
 </code></pre></div>
+  Este experimento con nombre <code>exp1_cv3_n10</code> se prueba con los parámetros <code>cv=3</code> y <code>n_iter=10</code>.</p>
+</li>
+<li>
+<p>Paso 2: Ejecutar el segundo experimento
+  <div class="highlight"><pre><span></span><code>dvc<span class="w"> </span>exp<span class="w"> </span>run<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>--name<span class="w"> </span>exp2_cv5_n30<span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-S<span class="w"> </span>configs/model_eng.yaml:RandomizedSearchCV.cv<span class="o">=</span><span class="m">5</span><span class="w"> </span><span class="se">\</span>
+<span class="w">      </span>-S<span class="w"> </span>configs/model_eng.yaml:RandomizedSearchCV.n_iter<span class="o">=</span><span class="m">30</span>
+</code></pre></div>
+  Este experimento con nombre <code>exp2_cv5_n30</code> se prueba con los parámetros <code>cv=5</code> y <code>n_iter=30</code>.</p>
+</li>
+</ul>
+<blockquote>
+<p>Cada experimento genera nuevas salidas y métricas, almacenadas temporalmente por DVC.</p>
+</blockquote>
+<h2 id="generar-metricas">Generar métricas</h2>
+<p>Es importante notar que en la etapa <strong>entrenamiento_evaluacion</strong> usamos la opción <code>metrics</code>. Esto es relevante porque ahora podemos revisar y comparar las métricas generadas por cada experimento.</p>
+<p>Para comparar los resultados entre los experimentos::</p>
+<div class="highlight"><pre><span></span><code>dvc<span class="w"> </span>exp<span class="w"> </span>show
+</code></pre></div>
+<p>Este comando mostrará una tabla con los experimentos ejecutados, indicando los valores de parámetros y métricas (extraídas de <code>reports/scores.json</code>).</p>
+<p>También puedes usar:</p>
+<div class="highlight"><pre><span></span><code>dvc<span class="w"> </span>exp<span class="w"> </span>diff<span class="w"> </span>exp1_cv3_n10<span class="w"> </span>exp2_cv5_n30
+</code></pre></div>
+<p>Para ver una comparación directa de los cambios en parámetros y métricas entre el experimento actual y el anterior.</p>
+<p>💾 (Opcional) Guardar un experimento que te interesa</p>
+<p>Si uno de los experimentos produjo buenos resultados:</p>
+<div class="highlight"><pre><span></span><code>dvc<span class="w"> </span>exp<span class="w"> </span>apply<span class="w"> </span>&lt;experiment_name&gt;
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Aplicar configuración del mejor experimento&quot;</span>
+</code></pre></div>
+<p>🛠️ Tarea</p>
+<ul>
+<li>Una vez ejecutados los experimentos y visualizados los resultados responda las preguntas en la plataforma virtual.</li>
+</ul>
 
 
 

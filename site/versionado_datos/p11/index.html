@@ -821,13 +821,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#escenario-eliminar-accidentalmente-el-archivo-local" class="md-nav__link">
+  <a href="#tarea-eliminar-accidentalmente-el-archivo-local" class="md-nav__link">
     <span class="md-ellipsis">
-      🗑️ Escenario: Eliminar accidentalmente el archivo local
+      🛠️ Tarea: Eliminar accidentalmente el archivo local
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="🗑️ Escenario: Eliminar accidentalmente el archivo local">
+    <nav class="md-nav" aria-label="🛠️ Tarea: Eliminar accidentalmente el archivo local">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1063,13 +1063,13 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#escenario-eliminar-accidentalmente-el-archivo-local" class="md-nav__link">
+  <a href="#tarea-eliminar-accidentalmente-el-archivo-local" class="md-nav__link">
     <span class="md-ellipsis">
-      🗑️ Escenario: Eliminar accidentalmente el archivo local
+      🛠️ Tarea: Eliminar accidentalmente el archivo local
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="🗑️ Escenario: Eliminar accidentalmente el archivo local">
+    <nav class="md-nav" aria-label="🛠️ Tarea: Eliminar accidentalmente el archivo local">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1104,7 +1104,7 @@
 
   <h1>Control de versiones de datos</h1>
 
-<p>En los proyectos de ciencia de datos, los archivos de datos suelen cambiar durante el desarrollo: nuevas versiones, transformaciones, limpieza, etc. Git no es adecuado para archivos grandes, por lo que DVC permite versionar datasets de forma eficiente, integrándose con Git y almacenando los datos reales en un remoto (como Google Drive o Google Cloud Storage). En esta práctica, aprenderás a rastrear y recuperar versiones previas de tus datos.</p>
+<p>En los proyectos de ciencia de datos, los archivos de datos suelen cambiar durante el desarrollo: nuevas versiones, transformaciones, limpieza, etc. Git no es adecuado para archivos grandes, por lo que DVC permite versionar datasets de forma eficiente, integrándose con Git y almacenando los datos reales en un repositorio remoto (como Google Drive o Google Cloud Storage). En esta práctica, aprenderás a rastrear y recuperar versiones previas de tus datos.</p>
 <h2 id="objetivo">🎯 Objetivo</h2>
 <p>Aprender a versionar datos en un proyecto de Machine Learning utilizando DVC (Data Version Control). Esta práctica incluye registrar archivos de datos, hacer seguimiento a los cambios y restaurar versiones anteriores, incluso si los archivos han sido eliminados localmente. </p>
 <h2 id="supuestos-iniciales">📁 Supuestos iniciales</h2>
@@ -1122,12 +1122,44 @@
 <p>Recuerda, este comando <strong>crea la carpeta <code>.dvc/</code></strong> y <strong>archivos de configuración</strong> necesarios para que DVC funcione. </p>
 </blockquote>
 <h3 id="2-configurar-git-para-registrar-los-archivos-dvc">2. Configurar Git para registrar los archivos DVC</h3>
+<p>Antes de aplicar el comando para agregar archivos con Git, es muy recomendable revisar el contenido del archivo <code>.gitignore</code>. Este archivo le indica a Git qué archivos o carpetas deben ser ignorados y, por tanto, no serán versionados ni subidos al repositorio.</p>
+<div class="admonition note">
+<p class="admonition-title">¿Qué buscar en <code>.gitignore</code>?</p>
+<p>Aquí algunos ejemplos comunes que sí deben estar:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Ignorar datos reales</span>
+/data/
+!data/
+!data/**/*.dvc<span class="w">   </span><span class="c1"># Excepto los archivos de control de DVC</span>
+
+<span class="c1"># Ignorar credenciales</span>
+service-account.json
+
+<span class="c1"># Ignorar salidas de modelos</span>
+/models/*
+!models/
+!models/**/*.dvc
+
+<span class="c1"># Ignorar salidas de reportes</span>
+reports/*
+!reports/
+!reports/**/*.dvc
+
+<span class="c1"># Otros</span>
+__pycache__/
+*.log
+</code></pre></div>
+</div>
+<p>Una vez verificado el contenido del archivo <code>.gitignore</code> y confirmado que los archivos necesarios no están siendo excluidos por error, puedes proceder a ejecutar el siguiente comando:</p>
 <div class="highlight"><pre><span></span><code>git<span class="w"> </span>add<span class="w"> </span>.dvc<span class="w"> </span>.gitignore
 git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Inicializa DVC en el proyecto&quot;</span>
 </code></pre></div>
+<p>Esto agrega al control de versiones la configuración de DVC y las reglas definidas para ignorar archivos, asegurando una gestión adecuada del proyecto desde el inicio.</p>
 <ul>
-<li><strong>git add .dvc .gitignore</strong>: Agrega a Git los archivos generados por DVC.
-.dvc/ contiene la configuración de DVC y .gitignore se actualiza para evitar que Git rastree archivos de datos grandes (que ahora serán manejados por DVC).</li>
+<li><strong>git add .dvc .gitignore</strong>: Este comando le indica a Git que agregue dos cosas al área de preparación (staging):<ul>
+<li><code>.dvc/</code> contiene la configuración de DVC </li>
+<li><code>.gitignore</code> es el archivo que le dice a Git qué archivos/directorios debe ignorar (por ejemplo, archivos de datos reales).</li>
+</ul>
+</li>
 <li><strong>git commit -m "Inicializa DVC en el proyecto"</strong>: Guarda estos cambios en el historial de Git.</li>
 </ul>
 <h3 id="2-agregar-archivo-de-datos-para-seguimiento">2. Agregar archivo de datos para seguimiento</h3>
@@ -1146,6 +1178,10 @@ git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </sp
 <li><strong>.gitignore</strong>: Este archivo evita que Git suba el archivo de datos real al repositorio, evitando que el repositorio se llene de archivos pesados. DVC lo crea automáticamente.</li>
 </ul>
 <p>Estos archivos <code>.dvc</code> son archivos YAML que guardan información clave sobre tu archivo de datos, incluyendo un hash MD5 que se recalcula cada vez que el archivo cambia. Esto permite a tu equipo seguir los cambios en los datos de forma segura y confiable.</p>
+</li>
+<li>
+<p><strong>git add data/raw/Dataset.csv.dvc .gitignore</strong>: Este comando agrega al control de versiones el archivo <code>.dvc</code> que rastrea el dataset con DVC y el archivo <code>.gitignore</code> actualizado para evitar que Git rastree directamente el archivo de datos pesado.
+Esto permite mantener el repositorio ligero mientras se versionan los datos de forma eficiente con DVC.</p>
 </li>
 </ul>
 <h3 id="3-sincronizar-datos-con-el-almacenamiento-remoto">3. Sincronizar datos con el almacenamiento remoto</h3>
@@ -1168,10 +1204,12 @@ git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </sp
 dvc<span class="w"> </span>pull
 </code></pre></div>
 <p>Con esto, descargarás desde el almacenamiento remoto la versión correcta de los datos para la rama en la que estés trabajando.</p>
-<h2 id="escenario-eliminar-accidentalmente-el-archivo-local">🗑️ Escenario: Eliminar accidentalmente el archivo local</h2>
+<h2 id="tarea-eliminar-accidentalmente-el-archivo-local">🛠️ Tarea: Eliminar accidentalmente el archivo local</h2>
+<p>En proyectos que usan DVC, los archivos de datos grandes no se almacenan directamente en Git, sino que se gestionan por separado a través del almacenamiento de DVC (local o remoto). Esto significa que si un archivo de datos como <code>data/raw/Dataset.csv</code> se elimina accidentalmente del sistema de archivos, no todo está perdido.</p>
+<p>A continuación, simulamos esta situación eliminando manualmente el archivo local:</p>
 <ul>
 <li>
-<p>Simula la eliminación del archivo de datos local:</p>
+<p>Elimina el archivo de datos local:</p>
 <div class="highlight"><pre><span></span><code>rm<span class="w"> </span>data/raw/Dataset.csv
 </code></pre></div>
 </li>
@@ -1187,7 +1225,7 @@ dvc<span class="w"> </span>pull
 </li>
 </ul>
 <blockquote>
-<p>✅ Esto restaura <code>data/raw/Dataset.csv</code> desde el remoto. Ideal para trabajar en diferentes máquinas o recuperar archivos perdidos.</p>
+<p>✅ Esto restaura <code>data/raw/Dataset.csv</code> desde el remoto. Ideal para trabajar en diferentes máquinas o recuperar archivos perdidos. Responda la pregunta en la plataforma virtual.</p>
 </blockquote>
 <h3 id="extra-ver-historial-de-versiones">📌 Extra: Ver historial de versiones</h3>
 <p>Puedes volver a una versión anterior del archivo de datos siguiendo estos pasos:</p>
