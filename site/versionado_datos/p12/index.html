@@ -784,6 +784,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#actualizacion-de-las-demas-etapas-del-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      Actualización de las demás etapas del pipeline
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#generar-metricas" class="md-nav__link">
     <span class="md-ellipsis">
       Generar métricas
@@ -928,6 +937,15 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#actualizacion-de-las-demas-etapas-del-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      Actualización de las demás etapas del pipeline
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#generar-metricas" class="md-nav__link">
     <span class="md-ellipsis">
       Generar métricas
@@ -955,7 +973,7 @@
   <h1>Trabajando con Pipelines</h1>
 
 <p>Después de configurar el almacenamiento remoto y configurar el inicio de un proyecto DVC para versionar datos y modelos, el siguiente paso es automatizar y estructurar flujos de trabajo mediante la construcción de un pipeline de experimentos. Un pipeline permite encadenar etapas del proceso (por ejemplo, preprocesamiento, entrenamiento y evaluación) de forma reproducible y trazable, facilitando el trabajo colaborativo y la experimentación sistemática.</p>
-<p>Esta práctica está basada en el conjunto de datos previamente versionado con DVC (<code>data/raw/Dataset.csv</code>). Este archivo es la fuente de datos para entrenar el modelo de predicción. Consideremos que nuestro experimento tiene tres etapas principales:</p>
+<p>Esta práctica está basada en el conjunto de datos previamente versionado con DVC (<code>data/raw/Dataset.csv</code>). Este archivo es la fuente de datos para entrenar el modelo de predicción. Recordemos que el proyecto implementado tiene tres etapas principales:</p>
 <ul>
 <li>Preprocesamiento de datos (limpieza, extracción de características, y división de datos)</li>
 <li>Entrenamiento del modelo</li>
@@ -971,77 +989,157 @@
 <h2 id="requisitos">🛠️ Requisitos</h2>
 <p>Debes contar con los siguientes scripts organizados en tu proyecto:</p>
 <ul>
-<li><strong>preprocess.py</strong>: realiza limpieza y extracción de características.</li>
-<li><strong>train.py</strong>: entrena un modelo de clasificación.</li>
-<li><strong>evaluate.py</strong>: evalúa el desempeño del modelo entrenado.</li>
+<li>
+<p><strong>stage2_cleaning.py</strong>: Realiza la limpieza y preprocesamiento de los datos brutos, eliminando valores inconsistentes o faltantes y estandarizando formatos para su posterior análisis.</p>
+</li>
+<li>
+<p><strong>stage3_labeling.py</strong>: Extrae características relevantes desde la fuente de datos y asigna etiquetas necesarias para el entrenamiento supervisado del modelo.</p>
+</li>
+<li>
+<p><strong>stage4_splitting.py</strong>: Divide el conjunto de datos procesado en subconjuntos de entrenamiento y prueba, asegurando una distribución adecuada para la validación del modelo.</p>
+</li>
+<li>
+<p><strong>stage1_2_train_evaluate.py</strong>: Entrena el modelo utilizando el conjunto de entrenamiento y evalúa su desempeño sobre el conjunto de prueba, generando métricas de rendimiento clave.</p>
+</li>
 </ul>
 <div class="admonition warning">
 <p class="admonition-title">Advertencia:</p>
 <p>Los pipelines propuestos a continuación están basados en la estructura del repositorio (creado en la práctica <a href="../../entorno/p5/">Estructura del Proyecto</a> y especializado en las prácticas <a href="../../entrenamiento/p7/">Versionado del Código</a>, <a href="../../entrenamiento/p8/">Empaquetado y gestión de dependencias</a> y <a href="../../entrenamiento/p9/">Buenas prácticas de codificación</a>). Sin embargo, es posible crear otros scripts y crear pipelines específicos para las necesidades de su proyecto.</p>
 </div>
 <h2 id="creacion-de-pipelines">Creación de pipelines</h2>
-<p>DVC construye un pipeline basado en tres componentes: Entradas (Inputs), Salidas (Outputs) y Comando (Command). Por ejemplo, para la etapa de preprocesamiento, estos serían los componentes:</p>
+<p>DVC construye un pipeline basado en tres componentes: Entradas (Inputs), Salidas (Outputs) y Comando (Command). Por ejemplo, para la etapa de limpieza de datos, estos serían los componentes:</p>
 <ul>
-<li><strong>Entradas</strong>: archivo <code>dataset.csv</code> y el script <code>preprocess.py</code></li>
-<li><strong>Salidas</strong>: archivo <code>dataset_processed.csv</code></li>
-<li><strong>Comando</strong>: <code>python preprocess.py dataset.csv</code></li>
+<li><strong>Entradas</strong>: archivo <code>data/raw/Dataset.csv</code> y el script <code>stage2_cleaning.py</code></li>
+<li><strong>Salidas</strong>: archivo <code>data/interim/Cleaned_Dataset.csv</code></li>
+<li><strong>Comando</strong>: <code>python3 stage2_cleaning.py</code></li>
 </ul>
-<p>Para crear esta etapa de preprocesamiento, utilizamos el comando <code>dvc run</code> de la siguiente forma:</p>
-<div class="highlight"><pre><span></span><code>dvc<span class="w"> </span>run<span class="w"> </span>-n<span class="w"> </span>preprocess<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-d<span class="w"> </span>./src/preprocess_data.py<span class="w"> </span>-d<span class="w"> </span>data/dataset.csv<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-o<span class="w"> </span>./data/dataset_processed.csv<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>python3<span class="w"> </span>./src/preprocess_data.py<span class="w"> </span>./data/dataset.csv
+<p>Para crear esta etapa, utilizamos el comando <code>dvc stage add</code> de la siguiente forma:</p>
+<div class="highlight"><pre><span></span><code>dvc<span class="w"> </span>stage<span class="w"> </span>add<span class="w"> </span>-n<span class="w"> </span>limpieza<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span>src/data_eng/stage2_cleaning.py<span class="w"> </span>-d<span class="w"> </span>data/raw/Dataset.csv<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-o<span class="w"> </span>data/interim/Cleaned_Dataset.csv<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>python3<span class="w"> </span>src/data_eng/stage2_cleaning.py
 </code></pre></div>
-<p>Aquí nombramos esta etapa como "preprocess" usando la opción <code>-n</code>. También definimos las entradas con la opción <code>-d</code> y las salidas con la opción <code>-o</code>. El comando que se ejecuta siempre va al final del comando <code>dvc run</code>, sin ninguna opción.</p>
+<p>Aquí nombramos esta etapa como "limpieza" usando la opción <code>-n</code>. También definimos las entradas con la opción <code>-d</code> y las salidas con la opción <code>-o</code>. El comando que se ejecuta siempre va al final del comando <code>dvc stage add</code>, sin ninguna opción.</p>
 <div class="admonition warning">
 <p class="admonition-title">Consejo</p>
 <p>Los archivos de salida se agregan al control de DVC cuando reproduces una etapa de DVC. Cuando finalices tu experimento, recuerda usar dvc push para versionar no solo los datos usados sino también los resultados generados durante el experimento.</p>
 </div>
-<p>La etapa de entrenamiento se crea de manera similar con:</p>
-<div class="highlight"><pre><span></span><code>dvc<span class="w"> </span>run<span class="w"> </span>-n<span class="w"> </span>train<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-d<span class="w"> </span>./src/train.py<span class="w"> </span>-d<span class="w"> </span>./data/dataset_processed.csv<span class="w"> </span>-d<span class="w"> </span>./src/model.py<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-o<span class="w"> </span>./models/model.joblib<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>python3<span class="w"> </span>./src/train.py<span class="w"> </span>./data/dataset_processed.csv<span class="w"> </span>./src/model.py
-</code></pre></div>
 <p>En este punto, es posible que hayas notado que se crearon dos archivos nuevos: <code>dvc.yaml</code> y <code>dvc.lock</code>.
-El primero es responsable de guardar lo que se describió en cada comando <code>dvc run</code>. Por lo tanto, si deseas crear o modificar una etapa específica, es posible editar directamente el archivo <code>dvc.yaml</code>. El archivo actual se vería así:</p>
+El primero es responsable de guardar lo que se describió en cada comando <code>dvc stage add</code>. Por lo tanto, si deseas crear o modificar una etapa específica, es posible editar directamente el archivo <code>dvc.yaml</code>. El archivo actual se vería así:</p>
 <div class="highlight"><pre><span></span><code>stages:
-<span class="w">  </span>preprocess:
-<span class="w">    </span>cmd:<span class="w"> </span>python3<span class="w"> </span>./src/preprocess_data.py<span class="w"> </span>./data/dataset.csv
+<span class="w">  </span>limpieza:
+<span class="w">    </span>cmd:<span class="w"> </span>python3<span class="w"> </span>src/data_eng/stage2_cleaning.py
 <span class="w">    </span>deps:
-<span class="w">    </span>-<span class="w"> </span>./src/preprocess_data.py
-<span class="w">    </span>-<span class="w"> </span>data/dataset.csv
+<span class="w">    </span>-<span class="w"> </span>src/data_eng/stage2_cleaning.py
+<span class="w">    </span>-<span class="w"> </span>data/raw/Dataset.csv
 <span class="w">    </span>outs:
-<span class="w">    </span>-<span class="w"> </span>./data/dataset_processed.csv
-<span class="w">    </span>-<span class="w"> </span>./data/features.csv
-<span class="w">  </span>train:
-<span class="w">    </span>cmd:<span class="w"> </span>python3<span class="w"> </span>./src/train.py<span class="w"> </span>./data/dataset_processed.csv<span class="w"> </span>./src/model.py<span class="w"> </span><span class="m">200</span>
-<span class="w">    </span>deps:
-<span class="w">    </span>-<span class="w"> </span>./data/dataset_processed.csv
-<span class="w">    </span>-<span class="w"> </span>./src/model.py
-<span class="w">    </span>-<span class="w"> </span>./src/train.py
-<span class="w">    </span>outs:
-<span class="w">    </span>-<span class="w"> </span>./models/model.joblib
+<span class="w">    </span>-<span class="w"> </span>data/interim/Cleaned_Dataset.csv
 </code></pre></div>
 <p>El segundo archivo creado es <code>dvc.lock</code>. Este también es un archivo YAML y su función es similar a los archivos <code>.dvc</code>. En su interior, podemos encontrar la ruta y un código hash para cada archivo de cada etapa, lo que permite a DVC hacer seguimiento de los cambios. Este seguimiento es importante porque ahora DVC puede saber cuándo una etapa debe ejecutarse de nuevo o no, basándose en si sus dependencias cambiaron.
 El pipeline actual se ve así:</p>
-<p><img alt="Pipeline_1" src="../recursos/imagen1.gif" /></p>
-<h2 id="generar-metricas">Generar métricas</h2>
-<p>Finalmente, vamos a crear nuestra última etapa para poder evaluar nuestro modelo:</p>
-<div class="highlight"><pre><span></span><code>dvc<span class="w"> </span>run<span class="w"> </span>-n<span class="w"> </span>evaluate<span class="w"> </span>-d<span class="w"> </span>./src/evaluate.py<span class="w"> </span>-d<span class="w"> </span>./data/weatherAUS_processed.csv<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-d<span class="w"> </span>./src/model.py<span class="w"> </span>-d<span class="w"> </span>./models/model.joblib<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-M<span class="w"> </span>./results/metrics.json<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>-o<span class="w"> </span>./results/precision_recall_curve.png<span class="w"> </span>-o<span class="w"> </span>./results/roc_curve.png<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>python3<span class="w"> </span>./src/evaluate.py<span class="w"> </span>./data/weatherAUS_processed.csv<span class="w"> </span>./src/model.py<span class="w"> </span>./models/model.joblib
+<p><img alt="Pipeline_1" src="../recursos/FaseLimpieza.png" /></p>
+<h2 id="actualizacion-de-las-demas-etapas-del-pipeline">Actualización de las demás etapas del pipeline</h2>
+<p>A partir de este punto, puedes definir y actualizar las siguientes etapas del pipeline directamente en el archivo <code>dvc.yaml</code>. Cada tarea o paso del flujo de trabajo se especifica como una etapa (stage) dentro de dicho archivo, siguiendo la estructura del pipeline. Por ejemplo:</p>
+<div class="highlight"><pre><span></span><code><span class="nt">stages</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">limpieza</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">cmd</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python3 src/data_eng/stage2_cleaning.py</span>
+<span class="w">    </span><span class="nt">deps</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data/raw/Dataset.csv</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">src/data_eng/stage2_cleaning.py</span>
+<span class="w">    </span><span class="nt">outs</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data/interim/Cleaned_Dataset.csv</span>
+
+<span class="w">  </span><span class="nt">extraccion_caracteristicas</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">cmd</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python3 src/data_eng/stage3_labeling.py</span>
+<span class="w">    </span><span class="nt">deps</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data/interim/Cleaned_Dataset.csv</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">src/data_eng/stage3_labeling.py</span>
+<span class="w">    </span><span class="nt">outs</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data/processed/Processed_Dataset.csv</span>
+
+<span class="w">  </span><span class="nt">division</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">cmd</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python3 src/data_eng/stage4_splitting.py</span>
+<span class="w">    </span><span class="nt">deps</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data/processed/Processed_Dataset.csv</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">src/data_eng/stage4_splitting.py</span>
+<span class="w">    </span><span class="nt">outs</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data/processed/Train_Dataset.csv</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data/processed/Test_Dataset.csv</span>
+
+<span class="w">  </span><span class="nt">entrenamiento_evaluacion</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">cmd</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">python3 src/model_eng/stage1_2_train_evaluate.py</span>
+<span class="w">    </span><span class="nt">deps</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data/processed/Test_Dataset.csv</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">data/processed/Train_Dataset.csv</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">src/model_eng/stage1_2_train_evaluate.py</span>
+<span class="w">    </span><span class="nt">params</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">configs/model_eng.yaml</span><span class="p">:</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">RandomizedSearchCV.scoring</span>
+<span class="w">        </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">RandomizedSearchCV.n_iter</span>
+<span class="w">    </span><span class="nt">outs</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">models/model_rf.pkl</span>
+<span class="w">    </span><span class="nt">metrics</span><span class="p">:</span>
+<span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reports/scores.json</span>
 </code></pre></div>
-<p>Es importante notar que en esta etapa usamos la opción <code>-M</code> en lugar de la opción <code>-o</code>. Esto es relevante porque ahora podemos almacenar las métricas generadas por cada experimento.
+<p>Entre las etapas definidas en el archivo <code>dvc.yaml</code>, a continuación se describe en detalle la etapa <strong>entrenamiento_evaluacion</strong>:</p>
+<p>Esta etapa forma parte del pipeline de DVC y tiene como objetivo entrenar y evaluar el modelo de aprendizaje automático utilizando conjuntos de datos previamente procesados:</p>
+<ul>
+<li><code>entrenamiento_evaluacion</code>: es el indentificador de la etapa.</li>
+<li>
+<p><code>cmd: python3 src/model_eng/stage1_2_train_evaluate.py</code>: Este es el script que se ejecuta cuando se corre esta etapa. En este caso, se trata de un script en Python que:</p>
+<ul>
+<li>Entrena el modelo y evalúa su desempeño.</li>
+<li>Guarda el modelo entrenado y las métricas.</li>
+</ul>
+</li>
+<li>
+<p><code>deps</code>:</p>
+<ul>
+<li><code>data/processed/Test_Dataset.csv</code></li>
+<li><code>data/processed/Train_Dataset.csv</code></li>
+<li><code>src/model_eng/stage1_2_train_evaluate.py</code></li>
+</ul>
+<p>Estas son las entradas que DVC monitorea para saber si el stage debe volver a ejecutarse. Si alguno de estos archivos cambia, DVC vuelve a ejecutar el stage. Aquí se incluyen:</p>
+<ul>
+<li>Los datos de entrenamiento y prueba procesados.</li>
+<li>El script de entrenamiento/evaluación.</li>
+</ul>
+</li>
+<li>
+<p><code>params:</code></p>
+<ul>
+<li><code>configs/model_eng.yaml:</code></li>
+<li><code>RandomizedSearchCV.scoring</code></li>
+<li><code>RandomizedSearchCV.n_iter</code></li>
+</ul>
+<p>Estos son parámetros que vienen de un archivo YAML externo (<code>configs/model_eng.yaml</code>) y que el script usa. Si cambias estos valores, DVC detectará el cambio y volverá a ejecutar el stage.</p>
+</li>
+<li>
+<p><code>outs:</code></p>
+<ul>
+<li><code>models/model_rf.pkl</code></li>
+</ul>
+<p>La salida es el modelo entrenado que se guarda como resultado. DVC lo versiona automáticamente.</p>
+</li>
+<li>
+<p><code>metrics:</code></p>
+<ul>
+<li><code>reports/scores.json</code></li>
+</ul>
+<p>En DVC las métricas se pueden mostrar, comparar entre versiones y usarlas en visualizaciones. Para el caso del proyecto las métricas a incluir están en el archivo JSON <code>reports/scores.json</code>, el cual contiene métricas del modelo, como rmse, r2_score, mse, train_score, etc. </p>
+</li>
+</ul>
+<p>El pipeline que representa el proyecto quedaría así:</p>
+<p><img alt="Pipeline_2" src="../recursos/Pipeline.png" /></p>
+<h2 id="generar-metricas">Generar métricas</h2>
+<p>Es importante notar que en la etapa <strong>entrenamiento_evaluacion</strong> usamos la opción <code>metrics</code>. Esto es relevante porque ahora podemos almacenar las métricas generadas por cada experimento.
 Si ejecutamos el comando:</p>
 <div class="highlight"><pre><span></span><code>dvc<span class="w"> </span>metrics<span class="w"> </span>show
 </code></pre></div>
-<p>podremos ver qué tan bueno fue el experimento, ya que este comando muestra las métricas guardadas en el archivo <code>metrics.json</code>.</p>
+<p>podremos ver qué tan bueno fue el experimento, ya que este comando muestra las métricas guardadas en el archivo <code>scores.json</code>.</p>
 <div class="highlight"><pre><span></span><code>$<span class="w"> </span>dvc<span class="w"> </span>metrics<span class="w"> </span>show
 Path<span class="w">                  </span>accuracy<span class="w">    </span>f1<span class="w">       </span>precision<span class="w">    </span>recall<span class="w">        </span>
-results/metrics.json<span class="w">  </span><span class="m">0</span>.84973<span class="w">     </span><span class="m">0</span>.90747<span class="w">  </span><span class="m">0</span>.8719<span class="w">       </span><span class="m">0</span>.94607
+results/scores.json<span class="w">  </span><span class="m">0</span>.84973<span class="w">     </span><span class="m">0</span>.90747<span class="w">  </span><span class="m">0</span>.8719<span class="w">       </span><span class="m">0</span>.94607
 </code></pre></div>
 
 
