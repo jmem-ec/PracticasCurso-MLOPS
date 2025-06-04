@@ -1264,51 +1264,28 @@ Toma en cuenta que <strong>no puedes llamar directamente</strong> a la función 
 </ul>
 </li>
 <li>
-<p>Realice un nuevo experimento utilizando un nuevo archivo de configuración en el que cambie un parámetro de su elección. No se le permite cambiar el archivo de configuración en el script, sino que debería poder proporcionarlo como argumento al iniciar el script, por ejemplo, algo como</p>
-<div class="highlight"><pre><span></span><code>python<span class="w"> </span>src/data_eng/stage0_loading.py<span class="w"> </span><span class="nv">experiment</span><span class="o">=</span>exp2
-</code></pre></div>
-<p>Le recomendamos que utilice una estructura de archivos como la siguiente:</p>
-<div class="highlight"><pre><span></span><code><span class="p">|</span>--confs
-<span class="p">|</span><span class="w">  </span><span class="p">|</span>--model1.yaml
-<span class="p">|</span><span class="w">  </span><span class="p">|</span>--data_eng.yaml
-<span class="p">|</span><span class="w">  </span><span class="p">|</span>--experiments
-<span class="p">|</span><span class="w">     </span><span class="p">|</span>--exp1.yaml
-<span class="p">|</span><span class="w">     </span><span class="p">|</span>--exp2.yaml
-<span class="p">|</span>--data
-<span class="p">|</span>--...
-</code></pre></div>
-<p>Este sería el archivo base de configuración <code>data_eng.yaml</code>, que incluye un grupo <code>experiment</code>:</p>
-<div class="highlight"><pre><span></span><code>defaults:
-<span class="w">    </span>-<span class="w"> </span>experiment:<span class="w"> </span>exp1<span class="w">   </span><span class="c1"># valor por defecto</span>
-
-data_source:
-<span class="w">    </span>url:<span class="w"> </span><span class="s2">&quot;https://raw.githubusercontent.com/jmem-ec/KRRCourse/ccbd6ccf8389ba0988d53fc9300a64da00e6368b/Consignment_pricing.csv&quot;</span>
-<span class="w">    </span>external_data_dir:<span class="w"> </span><span class="s2">&quot;data/external&quot;</span>
-<span class="w">    </span>filename:<span class="w"> </span><span class="s2">&quot;Consignment_pricing.csv&quot;</span>
-</code></pre></div>
-<p>Experimento 1: configs/experiments/exp1.yaml</p>
-<div class="highlight"><pre><span></span><code>data_source:
-<span class="w">    </span>filename:<span class="w"> </span><span class="s2">&quot;Dataset1.csv&quot;</span>
-</code></pre></div>
-<p>Experimento 2: configs/experiments/exp2.yaml</p>
-<div class="highlight"><pre><span></span><code>data_source:
-<span class="w">    </span>filename:<span class="w"> </span><span class="s2">&quot;Dataset2.csv&quot;</span>
-</code></pre></div>
-<p>Ahora puede probar los experimentos</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># Ejecuta con la configuración por defecto (exp1)</span>
-python<span class="w"> </span>src/data_eng/stage0_loading.py
-
-<span class="c1"># Ejecuta con la configuración de experimento 2</span>
-python<span class="w"> </span>src/data_eng/stage0_loading.py<span class="w"> </span><span class="nv">experiment</span><span class="o">=</span>exp2
-</code></pre></div>
-</li>
-<li>
 <p>Modifique el script <code>stage1_ingestion.py</code> para que obtenga los parámetros necesarios desde el archivo de configuración <code>data_eng.yaml</code>, en lugar de tenerlos codificados directamente en el script.
 En particular, asegúrate de que el archivo <code>data_eng.yaml</code> incluya la siguiente sección:</p>
 <div class="highlight"><pre><span></span><code>raw_data:
 <span class="w">    </span>raw_data_dir:<span class="w"> </span><span class="s2">&quot;data/raw&quot;</span>
 <span class="w">    </span>raw_filename:<span class="w"> </span><span class="s2">&quot;Dataset.csv&quot;</span>
 </code></pre></div>
+<p>Responde la pregunta en la plataforma virtual.</p>
+</li>
+<li>
+<p>Para mantener una configuración coherente y flexible en todo el proyecto, incorpora el uso de Hydra en todos los scripts que aún no lo utilicen.
+Actualiza el contenido de los siguientes archivos para que usen Hydra como gestor de configuración:</p>
+<p>📄 Archivos a modificar:</p>
+<ul>
+<li><a href="../recursos/final/stage2_cleaning.py">src/data_eng/stage2_ingestion.py</a></li>
+<li><a href="../recursos/final/stage3_labeling.py">src/data_eng/stage3_labeling.py</a></li>
+<li><a href="../recursos/final/stage4_splitting.py">src/data_eng/stage4_splitting.py</a></li>
+<li><a href="../recursos/final/stage1_2_train_evaluate.py">src/model_eng/stage1_2_train_evaluate.py</a></li>
+<li><a href="../recursos/final/stage3_prediction.py">src/model_eng/stage3_prediction.py</a></li>
+<li><a href="../recursos/final/data_eng.yaml">src/configs/data_eng.yaml</a></li>
+<li><a href="../recursos/final/model_eng.yaml">src/configs/model_eng.yaml</a></li>
+</ul>
+<p>Verifica que todo este funcionando normalmente.</p>
 </li>
 </ul>
 <h2 id="interfaces-de-linea-de-comandos">Interfaces de línea de comandos</h2>
@@ -1364,8 +1341,9 @@ La tarea consiste en ejecutar la limpieza de los datos simplemente escribiendo:<
 <div class="highlight"><pre><span></span><code><span class="nv">ingestion</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;data_eng.stage1_ingestion:main&quot;</span>
 <span class="nv">feature_engineering</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;data_eng.stage3_labeling:main&quot;</span>
 <span class="nv">splitting</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;data_eng.stage4_splitting:main&quot;</span>
-train<span class="p">&amp;</span><span class="nv">evaluate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;model_eng.model1.stage1-2_train-evaluate:main&quot;</span>
+train<span class="p">&amp;</span><span class="nv">evaluate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
 </code></pre></div>
+<p>¿Qué comando CLI usaste para la tarea train&amp;evaluate?. Responde la pregunta en la plataforma virtual.</p>
 <h3 id="ejecutar-codigo-no-python-desde-cli">Ejecutar código no-Python desde CLI</h3>
 <p>Hasta ahora, hemos aprendido a construir interfaces de línea de comandos (CLI) para scripts en Python, facilitando su ejecución directa desde el terminal. Sin embargo, en proyectos de Machine Learning reales, no todo el código es Python. A menudo necesitamos ejecutar herramientas de línea de comandos como <code>git</code>, <code>conda</code>, <code>dvc</code> o incluso <code>docker</code>, y estas invocaciones pueden volverse complejas, largas y difíciles de recordar.</p>
 <p>Por ejemplo, ejecutar una aplicación con Docker que use GPU puede implicar un comando tan largo como este:</p>
@@ -1428,7 +1406,7 @@ Si no estás seguro de las tareas disponibles en <code>invoke</code>, puedes usa
 </blockquote>
 </li>
 <li>
-<p>Desde la terminal, puedes ahora ejecutar todo el <strong>pipeline de data engineering</strong> con un solo comando:</p>
+<p>Desde la terminal, puedes ahora ejecutar el <strong>pipeline data engineering</strong> con un solo comando:</p>
 <div class="highlight"><pre><span></span><code>invoke<span class="w"> </span>data_eng_pipeline
 </code></pre></div>
 </li>
@@ -1448,11 +1426,12 @@ Si no estás seguro de las tareas disponibles en <code>invoke</code>, puedes usa
 <p>El objetivo es que puedas ejecutar todo este flujo con un solo comando desde la terminal usando <code>invoke</code>, por ejemplo:</p>
 <div class="highlight"><pre><span></span><code>invoke<span class="w"> </span>git<span class="w"> </span>--mensaje<span class="w"> </span>«Mi<span class="w"> </span>mensaje<span class="w"> </span>de<span class="w"> </span>commit»
 </code></pre></div>
+<p>Responde la pregunta en la plataforma virtual.</p>
 </li>
 </ul>
 <h2 id="buenas-practicas-de-documentacion-y-estilo">Buenas prácticas de documentación y estilo</h2>
 <p>Mantener scripts bien documentados es una parte clave en las buenas prácticas de codificación dentro del flujo MLOps. Los docstrings permiten describir el propósito, los parámetros y los valores de retorno de funciones y clases. Esto mejora la comprensión del código y facilita su integración en herramientas automatizadas.</p>
-<p>GitHub Copilot puede ayudarte a generar estos docstrings de manera rápida y consistente.</p>
+<p>GitHub Copilot puede ayudarte a generar estos docstrings de manera rápida y consistente. Te animamos a que pruebes estas funcionalidades posteriormente.</p>
 
 
 
