@@ -14,8 +14,6 @@ from sklearn.ensemble import RandomForestRegressor
 from app_logging import logging
 from app_exception.exception import AppException
 
-from data_eng.stage0_loading import GetData
-
 
 MODEL_DIR = "models"
 MODEL_PATH = os.path.join(os.getcwd(), MODEL_DIR)
@@ -25,7 +23,6 @@ MAIN_PATH = os.path.join(MODEL_PATH, folder_name)
 
 class TrainEvaluate:
     def __init__(self):
-        self.get_data = GetData()
         self.filename = "model_rf.pkl"
 
     def evaluation_metrics(self, act, pred):
@@ -37,7 +34,6 @@ class TrainEvaluate:
     def model_eval(self):
         try:
             logging.info("'train_evaluate' function started")
-            #self.config = self.get_data.read_params(config_path)
             self.test_data = "data/processed/Test_Dataset.csv"
             self.train_data = "data/processed/Train_Dataset.csv"
             self.model_dir = MODEL_DIR
@@ -96,7 +92,6 @@ class TrainEvaluate:
             logging.info("Model Trained on RandomizedSearchCV successfully")
             
             (r2, mse, rmse) = self.evaluation_metrics(self.y_test, y_pred)
-            #logging.info(r2*100, mse, rmse)
 
             os.makedirs(self.model_dir, exist_ok=True)
             os.makedirs(MAIN_PATH,exist_ok=True)

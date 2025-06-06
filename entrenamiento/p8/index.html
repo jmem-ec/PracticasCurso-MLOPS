@@ -1041,12 +1041,12 @@ Se definió y creó un entorno virtual con Conda, especificando:</p>
 </tbody>
 </table>
 <h2 id="error-comun-modulenotfound-al-ejecutar-un-script-del-proyecto">💥 Error común: <code>ModuleNotFound</code> al ejecutar un script del proyecto</h2>
-<p>Para ilustrar un problema común en proyectos mal configurados, ejecutaremos el script <code>GetData.py</code>, cuya función es obtener datos desde una fuente externa.</p>
+<p>Para ilustrar un problema común en proyectos mal configurados, ejecutaremos el script <code>src/data_eng/stage0_loading.py</code>, cuya función es obtener datos desde una fuente externa.</p>
 <p>Este script importa otros módulos del mismo proyecto, como por ejemplo:</p>
 <div class="highlight"><pre><span></span><code>from<span class="w"> </span>app_logging<span class="w"> </span>import<span class="w"> </span>logging
 </code></pre></div>
-<p>Sin embargo, si intentamos ejecutarlo directamente con (o desde VS Code):</p>
-<div class="highlight"><pre><span></span><code>python<span class="w"> </span>src/data_eng/GetData.py
+<p>Sin embargo, si intentamos ejecutarlo desde la terminal (o desde VS Code):</p>
+<div class="highlight"><pre><span></span><code>python<span class="w"> </span>src/data_eng/stage0_loading.py
 </code></pre></div>
 <p>Es muy probable que obtengamos un error como:</p>
 <div class="highlight"><pre><span></span><code>ModuleNotFoundError:<span class="w"> </span>No<span class="w"> </span>module<span class="w"> </span>named<span class="w"> </span><span class="s1">&#39;app_logging&#39;</span>
