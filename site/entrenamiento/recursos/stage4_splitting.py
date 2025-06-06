@@ -4,9 +4,6 @@ import pandas as pd
 
 from app_logging import logging
 
-from data_eng.stage0_loading import GetData
-from data_eng.stage3_labeling import FeatureEngineering
-
 
 class SplitData:
     """
@@ -16,14 +13,15 @@ class SplitData:
     """
 
     def __init__(self):
-        self.get_data = GetData()
-        self.labeling = FeatureEngineering()
+        pass
 
     def split_data(self, input_path):
+        
         logging.info("Starting data splitting...")
-
         # Apply feature engineering (assumes it returns a transformed DataFrame)
+        self.get_data = input_path 
         self.data = pd.read_csv(input_path, sep=",")
+
         logging.info("Feature engineering retrieved.")
 
         # Split data

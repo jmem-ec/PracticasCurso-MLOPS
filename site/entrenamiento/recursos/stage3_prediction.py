@@ -1,5 +1,4 @@
 import joblib
-import numpy as np
 import pandas as pd
 import os
 
@@ -13,7 +12,6 @@ def get_latest_model_path(model_dir="models", filename="model_rf.pkl"):
     raise FileNotFoundError("No trained model found.")
 
 model_path = get_latest_model_path()
-print(model_path)
 model = joblib.load(model_path)
 
 # Datos de prueba como diccionario
@@ -40,4 +38,5 @@ sample_df = pd.DataFrame([sample_data])
 
 output = model.predict(sample_df)
 
+print("Valor de la predicción ")
 print(output)
