@@ -1182,12 +1182,12 @@ Cabe destacar que, en nuestro proyecto, el nombre del experimento se genera de f
 </ul>
 <h3 id="tarea">🛠️ Tarea</h3>
 <ul>
-<li>Descarga la versión del script <code>stage_1_2_train_evaluate.py</code> y actualiza este codigo en tu proyecto. </li>
+<li>Descarga la versión del script <a href="../recursos/stage1_2_train_evaluate.py"><code>stage_1_2_train_evaluate.py</code></a> y actualiza este codigo en tu proyecto. </li>
 <li>
 <p>Revisa el código e identifica las secciones incorporadas para el uso de MLflow. En particular, ubica el uso de los siguientes métodos:</p>
 <ul>
 <li>
-<p><code>mlflow.set_tracking_url()</code>: no es necesario utilizarlo en el caso de uso local, por lo que esta línea <strong>esta documentada en el código</strong>, como referencia para configuraciones más avanzadas con un servidor de tracking. </p>
+<p><code>mlflow.set_tracking_uri()</code>: no es necesario utilizarlo en el caso de uso local, por lo que esta línea <strong>esta documentada en el código</strong>, como referencia para configuraciones más avanzadas con un servidor de tracking. </p>
 </li>
 <li>
 <p><code>mlflow.log_params()</code>: para registrar los parámetros utilizados durante el entrenamiento.</p>
@@ -1201,10 +1201,12 @@ Cabe destacar que, en nuestro proyecto, el nombre del experimento se genera de f
 </ul>
 </li>
 <li>
-<p>Revisa los resultados de la ejecución de los experimentos, llamando a la interfaz Web de MlFlow. </p>
+<p>Ejecuta nuevamente los dos experimentos realizados en la práctica <a href="../../versionado_datos/p12/">Trabajando con Pipelines</a>, entonces compara los resultados llamando a la interfaz Web de MlFlow. </p>
 <p>Abre con:</p>
-<div class="highlight"><pre><span></span><code>mlflow<span class="w"> </span>ui
+<p><div class="highlight"><pre><span></span><code>mlflow<span class="w"> </span>ui
 </code></pre></div>
+Dentro de la herramienta MLFlow compara los resultados de los dos experimentos mostrando los detalles de la ejecución:</p>
+<p><img alt="Comparando Experimentos en MLFlow" src="../recursos/mlflow_1.png" /></p>
 </li>
 </ul>
 <h2 id="opcion-b-uso-con-servidor-de-tracking">🔹 Opción B: Uso con servidor de tracking</h2>
@@ -1226,31 +1228,37 @@ Cabe destacar que, en nuestro proyecto, el nombre del experimento se genera de f
 </li>
 </ul>
 <p><strong>Parámetros relevantes al lanzar el servidor</strong>:
-Para iniciar el servidor de MLflow con una configuración mínima, puedes ejecutar el siguiente comando desde una nueva terminal: </p>
+Para iniciar el servidor de MLflow con una configuración mínima, puedes ejecutar el siguiente comando desde una nueva terminal. <strong>Debes usar estos comandos más adelante cuando se te pida ejecutar la tarea</strong>: </p>
 <div class="highlight"><pre><span></span><code>mlflow<span class="w"> </span>server<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--backend-store-uri<span class="w"> </span>sqlite:///mlflow.db<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--default-artifact-root<span class="w"> </span>./mlruns<span class="w"> </span><span class="se">\</span>
-<span class="w">  </span>--host<span class="w"> </span><span class="m">0</span>.0.0.0<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--host<span class="w"> </span><span class="m">127</span>.0.0.1<span class="w"> </span><span class="se">\</span>
 <span class="w">  </span>--port<span class="w"> </span><span class="m">5000</span>
 </code></pre></div>
-<p>Y en tu script debes especificar la URI del tracking:
-<div class="highlight"><pre><span></span><code>mlflow.set_tracking_uri<span class="o">(</span><span class="s2">&quot;http://localhost:5000&quot;</span><span class="o">)</span>
+<p>Y en tu script debes especificar la URI del tracking (descomenta la línea que ya existe en el código):
+<div class="highlight"><pre><span></span><code>mlflow.set_tracking_uri<span class="o">(</span>config.mlflow.tracking_uri<span class="o">)</span>
 </code></pre></div></p>
 <h3 id="tarea_1">🛠️ Tarea</h3>
 <ul>
 <li>
+<p>Elimina la carpeta <code>mlruns</code> que se generó al ejecutar MLflow de forma local. A partir de ahora, al ejecutar los experimentos, los resultados deberían almacenarse directamente en la base de datos gestionada por el servidor de MLflow.</p>
+</li>
+<li>
 <p>Agrega los siguientes parámetros en el archivo de configuración <code>model_eng.yaml</code></p>
 <div class="highlight"><pre><span></span><code>mlflow:
 <span class="w">  </span><span class="nv">mlruns_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;models&quot;</span>
-<span class="w">  </span><span class="nv">tracking_uri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;http://localhost:5000&quot;</span>
+<span class="w">  </span><span class="nv">tracking_uri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;http://127.0.0.1:5000&quot;</span>
 </code></pre></div>
 </li>
 <li>
-<p>Prueba el uso de MLFlow con servidor de tracking. Para ello recuerda ejecutar estas acciones en el siguiente orden:</p>
+<p>Configura el uso de MLFlow con servidor de tracking. Para ello recuerda ejecutar estas acciones en el siguiente orden:</p>
 <ol>
 <li>Inicia el servidor de MLFlow</li>
 <li>Descomenta la linea que define la URI del tracking server en el archivo <code>stage_1_2_train_evaluate.py</code>.</li>
 </ol>
+</li>
+<li>
+<p>Vuelve a ejecutar los dos experimentos realizados en la práctica <a href="../../versionado_datos/p12/">Trabajando con Pipelines</a>. Modifica al menos un parámetro en cada experimento para forzar su reejecución. Si es necesario, cambia también el nombre del experimento. Luego, compara los resultados obtenidos directamente en el servidor de MLflow.</p>
 </li>
 </ul>
 <h2 id="resumen-del-uso-de-mlflow">Resumen del uso de MLFlow</h2>
